@@ -34,6 +34,9 @@ class _CreateCollectionFormState extends State<CreateCollectionForm> {
       child: Column(
         children: <Widget>[
           TextFormField(
+            autofocus: true,
+            decoration: const InputDecoration(
+                border: UnderlineInputBorder(), labelText: "Collection name"),
             controller: _controller,
             validator: (value) {
               if (value == null || value.isEmpty) {
