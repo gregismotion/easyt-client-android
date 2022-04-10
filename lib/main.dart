@@ -1,4 +1,5 @@
 import 'package:easyt/screens/collections_screen.dart';
+import 'package:easyt/screens/create_collection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
         initialRoute: CollectionsScreen.route,
         routes: {
           CollectionsScreen.route: (context) => const CollectionsScreen(),
+          CreateCollectionScreen.route: (context) => const CreateCollectionScreen(),
         },
       ),
       providers: [ChangeNotifierProvider.value(value: DataProvider())],

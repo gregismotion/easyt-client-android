@@ -1,5 +1,6 @@
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/screens/create_collection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +19,10 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   @override
   void initState() {
     // NOTE: debug stuff....
-    for (var i = 0; i <= 1000; i++) {
+    /*for (var i = 0; i <= 50; i++) {
       Provider.of<DataProvider>(context, listen: false)
           .createCollection("test$i");
-    }
+    }*/
     _controller = ScrollController()..addListener(_scrollListener);
     super.initState();
   }
@@ -60,6 +61,11 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
     );
   }
 
+  void _createCollection() {
+    print("test");
+    Navigator.pushNamed(context, CreateCollectionScreen.route);
+  }
+
   @override
   Widget build(BuildContext context) {
     _collectionReferences.addAll(
@@ -71,7 +77,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
       body: _buildCollections(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: _createCollection,
       ),
     );
   }

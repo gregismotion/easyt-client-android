@@ -1,4 +1,3 @@
-
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/memory.dart';
 import 'package:flutter/widgets.dart';
@@ -16,8 +15,7 @@ class DataProvider extends ChangeNotifier implements Data {
   @override
   CollectionReference createCollection(String name) {
     var result = data.createCollection(name);
-    //notifyListeners();
-    // FIXME: while debugging we can't do this 'cos we create collections in the build phase...
+    notifyListeners();
     return result;
   }
 
