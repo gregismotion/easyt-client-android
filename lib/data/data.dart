@@ -14,8 +14,9 @@ abstract class Data {
   void deleteNamedType(String id);
 
   //collections
-  List<CollectionReference> getCollectionReferences();
-  ReferenceCollection getReferenceCollection(String id);
+  List<CollectionReference> getCollectionReferences(int size, String lastId);
+  ReferenceCollection getReferenceCollection(
+      String id, int size, String lastId);
   CollectionReference createCollection(String name);
   void deleteCollection(String id);
 

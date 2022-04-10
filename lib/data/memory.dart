@@ -16,14 +16,19 @@ class Collection {
     return CollectionReference(id, name);
   }
 
-  ReferenceCollection toReferenceCollection() {
+  ReferenceCollection toReferenceCollection(int size, String lastId) {
     ReferenceGroups referenceGroups = {};
+    bool throughLast = lastId.isEmpty;
     for (MapEntry group in data.entries) {
-      List<DataPointReference> references = [];
-      for (DataPoint dataPoint in group.value) {
-        references.add(dataPoint.toDataPointReference());
+      if (throughLast) {
+        List<DataPointReference> references = [];
+        for (DataPoint dataPoint in group.value) {
+          references.add(dataPoint.toDataPointReference());
+        }
+        referenceGroups[group.key] = references;
+      } else if (group.key == lastId) {
+        throughLast = true;
       }
-      referenceGroups[group.key] = references;
     }
     return ReferenceCollection(id, name, referenceGroups);
   }
@@ -113,10 +118,15 @@ class DataMemory implements Data {
   }
 
   @override
-  List<CollectionReference> getCollectionReferences() {
+  List<CollectionReference> getCollectionReferences(int size, String lastId) {
     List<CollectionReference> references = [];
+    bool throughLast = lastId.isEmpty;
     for (var collection in collections) {
-      references.add(collection.toReference());
+      if (throughLast) {
+        references.add(collection.toReference());
+      } else if (collection.id == lastId) {
+        throughLast = true;
+      }
     }
     return references;
   }
@@ -131,8 +141,9 @@ class DataMemory implements Data {
   }
 
   @override
-  ReferenceCollection getReferenceCollection(String id) {
-    return _getCollection(id).toReferenceCollection();
+  ReferenceCollection getReferenceCollection(
+      String id, int size, String lastId) {
+    return _getCollection(id).toReferenceCollection(size, lastId);
   }
 
   @override
