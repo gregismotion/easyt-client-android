@@ -23,8 +23,14 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
       Provider.of<DataProvider>(context, listen: false)
           .createCollection("test$i");
     }*/
-    _controller = ScrollController()..addListener(_scrollListener);
     super.initState();
+    _controller = ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   Widget _buildCollection(CollectionReference collection) {
@@ -62,12 +68,12 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   void _createCollection() {
-    print("test");
     Navigator.pushNamed(context, CreateCollectionScreen.route);
   }
 
   @override
   Widget build(BuildContext context) {
+    _collectionReferences.clear();
     _collectionReferences.addAll(
         Provider.of<DataProvider>(context).getCollectionReferences(10, ""));
     return Scaffold(
