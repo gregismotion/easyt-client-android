@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({Key? key}) : super(key: key);
+  static const String route = "/collection/list";
 
   @override
   State<CollectionsScreen> createState() => _CollectionsScreenState();

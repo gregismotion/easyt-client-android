@@ -1,6 +1,3 @@
-
-import 'package:easyt/data/data.dart';
-import 'package:easyt/data/memory.dart';
 import 'package:easyt/screens/collections_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +14,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      child: const MaterialApp(title: "EasyT", home: CollectionsScreen()),
+      child: MaterialApp(
+        title: "EasyT",
+        initialRoute: CollectionsScreen.route,
+        routes: {
+          CollectionsScreen.route: (context) => const CollectionsScreen(),
+        },
+      ),
       providers: [ChangeNotifierProvider.value(value: DataProvider())],
     );
   }
