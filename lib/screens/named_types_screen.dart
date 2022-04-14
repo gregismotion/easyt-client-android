@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../routes/router.gr.dart';
 
 class NamedTypesScreen extends StatefulWidget {
   const NamedTypesScreen({Key? key}) : super(key: key);
@@ -28,19 +31,19 @@ class _NamedTypesScreenState extends State<NamedTypesScreen> {
   }
 
   String _getLastId() {
-      if (_namedTypes.isNotEmpty) {
-        return _namedTypes.last.id;
-      }
-      return "";
+    if (_namedTypes.isNotEmpty) {
+      return _namedTypes.last.id;
+    }
+    return "";
   }
 
   void _createNamedType() {
-    // TODO: nav and screen
+    AutoRouter.of(context).push(const CreateNamedTypeRoute());
   }
 
   Widget _buildNamedType(NamedType namedType) {
     return ListTile(
-      title: Text(namedType.name),
+      title: Text("${namedType.name} (${basicTypeToName(namedType.basicType)})"),
     );
   }
 

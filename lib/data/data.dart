@@ -28,6 +28,20 @@ abstract class Data {
 
 // types
 enum BasicType { num, str }
+Map<BasicType, String> basicTypeNames = {
+  BasicType.num: "Number",
+  BasicType.str: "Text"
+};
+String basicTypeToName(BasicType basicType) =>
+    basicTypeNames[basicType] ?? "Unknown";
+BasicType nameToBasicType(String name) {
+  for (var entry in basicTypeNames.entries) {
+    if (entry.value == name) {
+      return entry.key;
+    }
+  }
+  throw NotFound("Couldn't find basic type named $name");
+}
 
 class NamedType {
   final String id;

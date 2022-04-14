@@ -11,15 +11,16 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 
 import '../screens/collections_screen.dart' as _i3;
 import '../screens/create_collection_screen.dart' as _i4;
+import '../screens/create_named_type_screen.dart' as _i6;
 import '../screens/home_screen.dart' as _i1;
 import '../screens/named_types_screen.dart' as _i5;
 
 class AppRouter extends _i2.RootStackRouter {
-  AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -48,9 +49,9 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.NamedTypesScreen());
     },
-    EmptyRouterPage.name: (routeData) {
+    CreateNamedTypeRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.EmptyRouterPage());
+          routeData: routeData, child: const _i6.CreateNamedTypeScreen());
     }
   };
 
@@ -72,7 +73,7 @@ class AppRouter extends _i2.RootStackRouter {
               children: [
                 _i2.RouteConfig(NamedTypesRoute.name,
                     path: '', parent: NamedTypesRouter.name),
-                _i2.RouteConfig(EmptyRouterPage.name,
+                _i2.RouteConfig(CreateNamedTypeRoute.name,
                     path: 'create', parent: NamedTypesRouter.name)
               ])
         ])
@@ -134,9 +135,10 @@ class NamedTypesRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.EmptyRouterPage]
-class EmptyRouterPage extends _i2.PageRouteInfo<void> {
-  const EmptyRouterPage() : super(EmptyRouterPage.name, path: 'create');
+/// [_i6.CreateNamedTypeScreen]
+class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
+  const CreateNamedTypeRoute()
+      : super(CreateNamedTypeRoute.name, path: 'create');
 
-  static const String name = 'EmptyRouterPage';
+  static const String name = 'CreateNamedTypeRoute';
 }

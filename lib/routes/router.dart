@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/screens/collections_screen.dart';
 import 'package:easyt/screens/create_collection_screen.dart';
+import 'package:easyt/screens/create_named_type_screen.dart';
 import 'package:easyt/screens/home_screen.dart';
 import 'package:easyt/screens/named_types_screen.dart';
 
@@ -20,7 +21,7 @@ import 'package:easyt/screens/named_types_screen.dart';
         page: EmptyRouterPage,
         children: [
           AutoRoute(path: '', page: NamedTypesScreen),
-          AutoRoute(path: 'create', page: EmptyRouterPage),
+          AutoRoute(path: 'create', page: CreateNamedTypeScreen),
         ]),
   ]),
 ])
