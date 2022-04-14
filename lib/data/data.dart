@@ -59,6 +59,8 @@ class ReferenceCollection {
   final ReferenceGroups data;
 
   ReferenceCollection(this.id, this.name, this.data);
+
+    
 }
 
 class CollectionReference {

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/misc/collection_tile.dart';
 import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,9 +30,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   Widget _buildCollection(CollectionReference collection) {
-    return ListTile(
-      title: Text(collection.name),
-    );
+    return CollectionTile(
+        collectionId: collection.id, collectionName: collection.name);
   }
 
   void _scrollListener() {
