@@ -19,11 +19,6 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
 
   @override
   void initState() {
-    // NOTE: debug stuff....
-    /*for (var i = 0; i <= 50; i++) {
-      Provider.of<DataProvider>(context, listen: false)
-          .createCollection("test$i");
-    }*/
     super.initState();
     _controller = ScrollController()..addListener(_scrollListener);
   }
@@ -42,13 +37,9 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
 
   void _scrollListener() {
     if (_controller.position.extentAfter < 500) {
-      var lastId = "";
-      if (_collectionReferences.isNotEmpty) {
-        lastId = _collectionReferences.last.id;
-      }
       _collectionReferences.addAll(
           Provider.of<DataProvider>(context, listen: false)
-              .getCollectionReferences(10, lastId));
+              .getCollectionReferences(10, _getLastId()));
     }
   }
 
@@ -69,15 +60,20 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   void _createCollection() {
-    //Navigator.pushNamed(context, CreateCollectionScreen.route);
     AutoRouter.of(context).push(const CreateCollectionRoute());
+  }
+
+  String _getLastId() {
+    if (_collectionReferences.isNotEmpty) {
+      return _collectionReferences.last.id;
+    }
+    return "";
   }
 
   @override
   Widget build(BuildContext context) {
-    _collectionReferences.clear();
-    _collectionReferences.addAll(
-        Provider.of<DataProvider>(context).getCollectionReferences(10, ""));
+    _collectionReferences.addAll(Provider.of<DataProvider>(context)
+        .getCollectionReferences(10, _getLastId()));
     return Scaffold(
       body: _buildCollections(),
       floatingActionButton: FloatingActionButton(
