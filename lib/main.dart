@@ -1,5 +1,4 @@
-import 'package:easyt/screens/collections_screen.dart';
-import 'package:easyt/screens/create_collection_screen.dart';
+import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,14 +13,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _appRouter = AppRouter();
+
     return MultiProvider(
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: "EasyT",
-        initialRoute: CollectionsScreen.route,
-        routes: {
-          CollectionsScreen.route: (context) => const CollectionsScreen(),
-          CreateCollectionScreen.route: (context) => const CreateCollectionScreen(),
-        },
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
       ),
       providers: [ChangeNotifierProvider.value(value: DataProvider())],
     );

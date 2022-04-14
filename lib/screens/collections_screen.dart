@@ -1,12 +1,13 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/screens/create_collection_screen.dart';
+import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({Key? key}) : super(key: key);
-  static const String route = "/collection/list";
 
   @override
   State<CollectionsScreen> createState() => _CollectionsScreenState();
@@ -68,7 +69,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   void _createCollection() {
-    Navigator.pushNamed(context, CreateCollectionScreen.route);
+    //Navigator.pushNamed(context, CreateCollectionScreen.route);
+    AutoRouter.of(context).push(const CreateCollectionRoute());
   }
 
   @override
@@ -77,9 +79,6 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
     _collectionReferences.addAll(
         Provider.of<DataProvider>(context).getCollectionReferences(10, ""));
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Collections"),
-      ),
       body: _buildCollections(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

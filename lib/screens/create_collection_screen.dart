@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class CreateCollectionScreen extends StatelessWidget {
   const CreateCollectionScreen({Key? key}) : super(key: key);
-  static const String route = "/collection/create";
 
   Widget _buildForm() {
     return const CreateCollectionForm();
@@ -11,10 +10,6 @@ class CreateCollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Create a collection"),
-        ),
-        body: _buildForm());
+    return _buildForm();
   }
 }
