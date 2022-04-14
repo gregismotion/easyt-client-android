@@ -90,8 +90,17 @@ class DataMemory implements Data {
   }
 
   @override
-  List<NamedType> getNamedTypes() {
-    return namedTypes;
+  List<NamedType> getNamedTypes(int size, String lastId) {
+    List<NamedType> paginatedNamedTypes = [];
+    bool throughLast = lastId.isEmpty;
+    for (var namedType in namedTypes) {
+      if (throughLast) {
+        paginatedNamedTypes.add(namedType);
+      } else if (namedType.id == lastId) {
+        throughLast = true;
+      }
+    }
+    return paginatedNamedTypes;
   }
 
   @override

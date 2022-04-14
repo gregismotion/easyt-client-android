@@ -8,7 +8,7 @@ class NotFound implements Exception {
 abstract class Data {
   // types
   List<BasicType> getBasicTypes();
-  List<NamedType> getNamedTypes();
+  List<NamedType> getNamedTypes(int size, String lastId);
   NamedType getNamedType(String id);
   NamedType createNamedType(NamedType namedType);
   void deleteNamedType(String id);
