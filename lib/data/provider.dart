@@ -65,8 +65,8 @@ class DataProvider extends ChangeNotifier implements Data {
   }
 
   @override
-  List<NamedType> getNamedTypes() {
-    return data.getNamedTypes();
+  List<NamedType> getNamedTypes(int size, String lastId) {
+    return data.getNamedTypes(size, lastId);
   }
 
   @override
