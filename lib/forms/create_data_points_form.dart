@@ -19,7 +19,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
   List<NamedType> namedTypes = [];
-  DataGroup dataGroup = [];
+  DataGroup dataGroup = DataGroup.local(DateTime.now(), []);
 
   @override
   void initState() {
@@ -37,20 +37,37 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   void _createDataPoints() {
     Provider.of<DataProvider>(context, listen: false)
         .addDataGroup(widget.collectionId, dataGroup);
+    Navigator.pop(context);
   }
 
   void _addDataPoint() {
     if (namedTypes.isNotEmpty) {
       setState(() {
-        dataGroup.add(DataPoint.local(namedTypes[0], DateTime.now(), ""));
+        dataGroup.dataPoints.add(DataPoint.local(namedTypes[0], ""));
       });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: dataGroup.date,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(1948, 3, 15),
+        lastDate: DateTime(9999, 1, 1));
+    if (date != null) {
+      TimeOfDay time = await showTimePicker(
+              context: context, initialTime: TimeOfDay.now()) ??
+          TimeOfDay.fromDateTime(dataGroup.date);
+      dataGroup.date =
+          DateTime(date.year, date.month, date.day, time.hour, time.minute);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
-    for (DataPoint dataPoint in dataGroup) {
+    for (DataPoint dataPoint in dataGroup.dataPoints) {
       children.add(CreateDataPointWidget(
         namedTypes: namedTypes,
         dataPoint: dataPoint,
@@ -58,6 +75,11 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     }
     children.addAll([
       ElevatedButton(onPressed: _addDataPoint, child: const Icon(Icons.add)),
+      ElevatedButton(
+          onPressed: () {
+            _selectTime(context);
+          },
+          child: const Icon(Icons.calendar_month)),
       ElevatedButton(onPressed: _createDataPoints, child: const Text("Create"))
     ]);
     return Form(

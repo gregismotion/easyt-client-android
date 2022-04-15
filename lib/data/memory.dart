@@ -6,27 +6,23 @@ class Collection {
 
   final String id;
   final String name;
-  final DataGroups data;
-  Collection(this.id, this.name, this.data);
+  final List<DataGroup> dataGroups;
+  Collection(this.id, this.name, this.dataGroups);
   Collection.create(this.name)
       : id = const Uuid().v1(),
-        data = {};
+        dataGroups = [];
 
   CollectionReference toReference() {
     return CollectionReference(id, name);
   }
 
   ReferenceCollection toReferenceCollection(int size, String lastId) {
-    ReferenceGroups referenceGroups = {};
+    List<ReferenceGroup> referenceGroups = [];
     bool throughLast = lastId.isEmpty;
-    for (MapEntry group in data.entries) {
+    for (DataGroup group in dataGroups) {
       if (throughLast) {
-        List<DataPointReference> references = [];
-        for (DataPoint dataPoint in group.value) {
-          references.add(dataPoint.toDataPointReference());
-        }
-        referenceGroups[group.key] = references;
-      } else if (group.key == lastId) {
+        referenceGroups.add(group.toReferenceGroup());
+      } else if (group.id == lastId) {
         throughLast = true;
       }
     }
@@ -34,17 +30,17 @@ class Collection {
   }
 
   DataGroup getDataGroup(String id) {
-    final group = data[id];
-    if (group == null) {
-      throw NotFound("Group ($id) not found!");
-    } else {
-      return group;
+    for (DataGroup dataGroup in dataGroups) {
+      if (dataGroup.id == id) {
+        return dataGroup;
+      }
     }
+    throw NotFound("DataGroup ($id) not found!");
   }
 
   DataPoint getDataPoint(String groupId, dataId) {
     final group = getDataGroup(groupId);
-    for (DataPoint dataPoint in group) {
+    for (DataPoint dataPoint in group.dataPoints) {
       if (dataPoint.id == dataId) {
         return dataPoint;
       }
@@ -52,27 +48,22 @@ class Collection {
     throw NotFound("DataPoint ($dataId) not found!");
   }
 
-  ReferenceGroups addDataGroup(DataGroup dataGroup) {
+  ReferenceGroup addDataGroup(DataGroup dataGroup) {
     String id = uuid.v1();
-    DataGroup newDataGroup = [];
-    for (DataPoint dataPoint in dataGroup) {
-      newDataGroup.add(DataPoint(
-          uuid.v1(), dataPoint.namedType, dataPoint.date, dataPoint.value));
+    DataGroup newGroup = DataGroup(id, dataGroup.date, []);
+    for (DataPoint dataPoint in dataGroup.dataPoints) {
+      newGroup.dataPoints
+          .add(DataPoint(uuid.v1(), dataPoint.namedType, dataPoint.value));
     }
-    data[id] = newDataGroup;
-    ReferenceGroup referenceGroup = [];
-    for (DataPoint dataPoint in newDataGroup) {
-      referenceGroup.add(dataPoint.toDataPointReference());
-    }
-    ReferenceGroups referenceGroups = {id: referenceGroup};
-    return referenceGroups;
+    dataGroups.add(newGroup);
+    return newGroup.toReferenceGroup();
   }
 
   void deleteDataPoint(String groupId, dataId) {
     final group = getDataGroup(groupId);
-    for (DataPoint dataPoint in group) {
+    for (DataPoint dataPoint in group.dataPoints) {
       if (dataPoint.id == id) {
-        group.remove(dataPoint);
+        group.dataPoints.remove(dataPoint);
       }
     }
     throw NotFound("DataPoint ($id) not found!");
@@ -174,7 +165,7 @@ class DataMemory implements Data {
   }
 
   @override
-  ReferenceGroups addDataGroup(String colId, DataGroup dataGroup) {
+  ReferenceGroup addDataGroup(String colId, DataGroup dataGroup) {
     final collection = _getCollection(colId);
     return collection.addDataGroup(dataGroup);
   }

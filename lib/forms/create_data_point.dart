@@ -16,25 +16,6 @@ class CreateDataPointWidget extends StatefulWidget {
 class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
   final _controller = TextEditingController();
 
-  Future<void> _selectTime(BuildContext context) async {
-    widget.dataPoint.date = await showDatePicker(
-            context: context,
-            initialDate: widget.dataPoint.date,
-            initialDatePickerMode: DatePickerMode.day,
-            firstDate: DateTime(1948, 3, 15),
-            lastDate: DateTime(9999, 1, 1)) ??
-        widget.dataPoint.date;
-    TimeOfDay time =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now()) ??
-            TimeOfDay.fromDateTime(widget.dataPoint.date);
-    widget.dataPoint.date = DateTime(
-        widget.dataPoint.date.year,
-        widget.dataPoint.date.month,
-        widget.dataPoint.date.day,
-        time.hour,
-        time.minute);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<NamedType>> items = [];
@@ -64,12 +45,7 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
             items: items,
             onChanged: (value) {
               widget.dataPoint.namedType = value ?? widget.namedTypes[0];
-            }),
-        ElevatedButton(
-            onPressed: () {
-              _selectTime(context);
-            },
-            child: const Icon(Icons.calendar_month))
+            })
       ],
     );
   }

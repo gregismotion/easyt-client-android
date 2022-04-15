@@ -6,7 +6,7 @@ class DataProvider extends ChangeNotifier implements Data {
   final Data data = DataMemory();
 
   @override
-  ReferenceGroups addDataGroup(String colId, DataGroup dataGroup) {
+  ReferenceGroup addDataGroup(String colId, DataGroup dataGroup) {
     var result = data.addDataGroup(colId, dataGroup);
     notifyListeners();
     return result;

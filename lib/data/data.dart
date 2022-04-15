@@ -22,7 +22,7 @@ abstract class Data {
 
   //data
   DataPoint getDataPoint(String colId, String groupId, String dataId);
-  ReferenceGroups addDataGroup(String colId, DataGroup dataGroup);
+  ReferenceGroup addDataGroup(String colId, DataGroup dataGroup);
   void deleteDataPoint(String colId, groupId, dataId);
 }
 
@@ -56,9 +56,9 @@ class NamedType {
 class ReferenceCollection {
   final String id;
   final String name;
-  final ReferenceGroups data;
+  final List<ReferenceGroup> referenceGroups;
 
-  ReferenceCollection(this.id, this.name, this.data);
+  ReferenceCollection(this.id, this.name, this.referenceGroups);
 }
 
 class CollectionReference {
@@ -68,18 +68,37 @@ class CollectionReference {
 }
 
 //data
-typedef DataGroup = List<DataPoint>;
-typedef DataGroups = Map<String, DataGroup>;
-typedef ReferenceGroup = List<DataPointReference>;
-typedef ReferenceGroups = Map<String, ReferenceGroup>;
+class DataGroup {
+  String id;
+  DateTime date;
+  final List<DataPoint> dataPoints;
+
+  DataGroup(this.id, this.date, this.dataPoints);
+  DataGroup.local(this.date, this.dataPoints) : id = "local";
+
+  ReferenceGroup toReferenceGroup() {
+    List<DataPointReference> dataReferences = [];
+    for (DataPoint dataPoint in dataPoints) {
+      dataReferences.add(dataPoint.toDataPointReference());
+    }
+    return ReferenceGroup(id, date, dataReferences);
+  }
+}
+
+class ReferenceGroup {
+  final String id;
+  final DateTime date;
+  final List<DataPointReference> dataReferences;
+
+  ReferenceGroup(this.id, this.date, this.dataReferences);
+}
 
 class DataPoint {
   String id;
   NamedType namedType;
-  DateTime date;
   String value;
-  DataPoint(this.id, this.namedType, this.date, this.value);
-  DataPoint.local(this.namedType, this.date, this.value) : id = "local";
+  DataPoint(this.id, this.namedType, this.value);
+  DataPoint.local(this.namedType, this.value) : id = "local";
 
   DataPointReference toDataPointReference() {
     return DataPointReference.fromDataPoint(this);
@@ -89,10 +108,9 @@ class DataPoint {
 class DataPointReference {
   final String id;
   final NamedType namedType;
-  final DateTime time;
-  DataPointReference(this.id, this.namedType, this.time);
+
+  DataPointReference(this.id, this.namedType);
   DataPointReference.fromDataPoint(DataPoint data)
       : id = data.id,
-        namedType = data.namedType,
-        time = data.date;
+        namedType = data.namedType;
 }
