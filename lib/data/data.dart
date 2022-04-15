@@ -59,8 +59,6 @@ class ReferenceCollection {
   final ReferenceGroups data;
 
   ReferenceCollection(this.id, this.name, this.data);
-
-    
 }
 
 class CollectionReference {
@@ -76,12 +74,12 @@ typedef ReferenceGroup = List<DataPointReference>;
 typedef ReferenceGroups = Map<String, ReferenceGroup>;
 
 class DataPoint {
-  final String id;
-  final NamedType namedType;
-  final DateTime time;
-  final String value;
-  DataPoint(this.id, this.namedType, this.time, this.value);
-  DataPoint.local(this.namedType, this.time, this.value) : id = "local";
+  String id;
+  NamedType namedType;
+  DateTime date;
+  String value;
+  DataPoint(this.id, this.namedType, this.date, this.value);
+  DataPoint.local(this.namedType, this.date, this.value) : id = "local";
 
   DataPointReference toDataPointReference() {
     return DataPointReference.fromDataPoint(this);
@@ -96,5 +94,5 @@ class DataPointReference {
   DataPointReference.fromDataPoint(DataPoint data)
       : id = data.id,
         namedType = data.namedType,
-        time = data.time;
+        time = data.date;
 }

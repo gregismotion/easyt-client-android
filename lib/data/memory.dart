@@ -45,11 +45,11 @@ class Collection {
   DataPoint getDataPoint(String groupId, dataId) {
     final group = getDataGroup(groupId);
     for (DataPoint dataPoint in group) {
-      if (dataPoint.id == id) {
+      if (dataPoint.id == dataId) {
         return dataPoint;
       }
     }
-    throw NotFound("DataPoint ($id) not found!");
+    throw NotFound("DataPoint ($dataId) not found!");
   }
 
   ReferenceGroups addDataGroup(DataGroup dataGroup) {
@@ -57,7 +57,7 @@ class Collection {
     DataGroup newDataGroup = [];
     for (DataPoint dataPoint in dataGroup) {
       newDataGroup.add(DataPoint(
-          uuid.v1(), dataPoint.namedType, dataPoint.time, dataPoint.value));
+          uuid.v1(), dataPoint.namedType, dataPoint.date, dataPoint.value));
     }
     data[id] = newDataGroup;
     ReferenceGroup referenceGroup = [];
