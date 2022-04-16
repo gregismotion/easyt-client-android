@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'data/provider.dart';
 
 // TODO: edit/delete datagroup itself
-// FIXME: already used namedtype deletion does not work
 
 void main() {
   runApp(const App());

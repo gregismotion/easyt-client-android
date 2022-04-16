@@ -112,7 +112,27 @@ class DataMemory implements Data {
 
   @override
   void deleteNamedType(String id) {
-    namedTypes.remove(getNamedType(id));
+    // NOTE: maybe we should only let deletion after it's not used, for data safety...
+    NamedType namedType = getNamedType(id);
+    for (Collection collection in collections) {
+      Map<DataGroup, List<DataPoint>> targets = {};
+      for (DataGroup dataGroup in collection.dataGroups) {
+        if (targets[dataGroup] == null) {
+          targets[dataGroup] = [];
+        }
+        for (DataPoint dataPoint in dataGroup.dataPoints) {
+          if (dataPoint.namedType == namedType) {
+            targets[dataGroup]?.add(dataPoint);
+          }
+        }
+      }
+      for (MapEntry<DataGroup, List<DataPoint>> entry in targets.entries) {
+        for (DataPoint dataPoint in entry.value) {
+          entry.key.dataPoints.remove(dataPoint);
+        }
+      }
+    }
+    namedTypes.remove(namedType);
   }
 
   @override
