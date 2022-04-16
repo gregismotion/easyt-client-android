@@ -6,6 +6,8 @@ import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// TODO: switch to infinite_scroll_pagination
+
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({Key? key}) : super(key: key);
 

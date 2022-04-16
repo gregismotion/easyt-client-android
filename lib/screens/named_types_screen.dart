@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../routes/router.gr.dart';
 
+// TODO: switch to infinite_scroll_pagination
+
 class NamedTypesScreen extends StatefulWidget {
   const NamedTypesScreen({Key? key}) : super(key: key);
 
