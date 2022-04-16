@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +42,10 @@ class DataPointTable extends StatelessWidget {
           DataPoint dataPoint = Provider.of<DataProvider>(context)
               .getDataPoint(collection.id, referenceGroup.id, reference.id);
           tempRows[rowIndex]?.cells[columnMap[reference.namedType] ?? 1] =
-              DataCell(Text(dataPoint.value));
+              DataCell(
+            Text(dataPoint.value),
+            onLongPress: () => AutoRouter.of(context).push(EditDataPointRoute(collectionId: collection.id, groupId: referenceGroup.id, dataId: dataPoint.id)),
+          );
         }
         rowIndex++;
       } else {

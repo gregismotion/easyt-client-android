@@ -59,15 +59,8 @@ class Collection {
     return newGroup.toReferenceGroup();
   }
 
-  void deleteDataPoint(String groupId, String dataId) {
-    final group = getDataGroup(groupId);
-    for (DataPoint dataPoint in group.dataPoints) {
-      if (dataPoint.id == id) {
-        group.dataPoints.remove(dataPoint);
-      }
-    }
-    throw NotFound("DataPoint ($id) not found!");
-  }
+  void deleteDataPoint(String groupId, String dataId) =>
+      getDataGroup(groupId).dataPoints.remove(getDataPoint(groupId, dataId));
 }
 
 class DataMemory implements Data {
@@ -187,7 +180,8 @@ class DataMemory implements Data {
   }
 
   @override
-  void editDataPoint(String colId, String groupId, String dataId, String newValue) {
+  void editDataPoint(
+      String colId, String groupId, String dataId, String newValue) {
     getDataPoint(colId, groupId, dataId).value = newValue;
   }
 }
