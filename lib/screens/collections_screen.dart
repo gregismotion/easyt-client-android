@@ -70,8 +70,9 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _collectionReferences.addAll(Provider.of<DataProvider>(context)
-        .getCollectionReferences(10, _getLastId()));
+    _collectionReferences.clear();
+    _collectionReferences.addAll(
+        Provider.of<DataProvider>(context).getCollectionReferences(10, ""));
     return Scaffold(
       body: _buildCollections(),
       floatingActionButton: FloatingActionButton(
