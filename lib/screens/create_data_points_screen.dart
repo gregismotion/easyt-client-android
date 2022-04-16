@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easyt/forms/create_data_points_form.dart';
 import 'package:flutter/material.dart';
 
-// TODO: prefill with existing named types
-
 class CreateDataPointsScreen extends StatelessWidget {
   final String collectionId;
   const CreateDataPointsScreen(

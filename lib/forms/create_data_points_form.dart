@@ -20,9 +20,26 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   final _controller = TextEditingController();
   DataGroup dataGroup = DataGroup.local(DateTime.now(), []);
 
+  List<NamedType> getUsedNamedTypes() {
+    List<NamedType> usedNamedTypes = [];
+    for (ReferenceGroup referenceGroup in Provider.of<DataProvider>(context, listen: false)
+        .getReferenceCollection(widget.collectionId, 100, "")
+        .referenceGroups) {
+      for (DataPointReference reference in referenceGroup.dataReferences) {
+        if (!usedNamedTypes.contains(reference.namedType)) {
+          usedNamedTypes.add(reference.namedType);
+        }
+      }
+    } // FIXME: we might miss the biggest DataGroup
+    return usedNamedTypes;
+  }
+
   @override
   void initState() {
     super.initState();
+    for (NamedType namedType in getUsedNamedTypes()) {
+      dataGroup.dataPoints.add(DataPoint.local(namedType, ""));
+    }
   }
 
   @override
@@ -38,7 +55,8 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   }
 
   void _addDataPoint() {
-    List<NamedType> namedTypes = Provider.of<DataProvider>(context, listen: false).getNamedTypes(1, "");
+    List<NamedType> namedTypes =
+        Provider.of<DataProvider>(context, listen: false).getNamedTypes(1, "");
     if (namedTypes.isNotEmpty) {
       setState(() {
         dataGroup.dataPoints.add(DataPoint.local(namedTypes[0], ""));

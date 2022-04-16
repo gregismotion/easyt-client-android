@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'data/provider.dart';
 
 // TODO: create multiple providers
+// FIXME: already used namedtype deletion does not work
 
 void main() {
   runApp(const App());
