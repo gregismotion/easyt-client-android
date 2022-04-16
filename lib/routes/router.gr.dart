@@ -11,18 +11,19 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/material.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 
 import '../screens/collection_screen.dart' as _i5;
 import '../screens/collections_screen.dart' as _i3;
 import '../screens/create_collection_screen.dart' as _i4;
 import '../screens/create_data_points_screen.dart' as _i6;
 import '../screens/create_named_type_screen.dart' as _i8;
+import '../screens/edit_named_type_screen.dart' as _i9;
 import '../screens/home_screen.dart' as _i1;
 import '../screens/named_types_screen.dart' as _i7;
 
 class AppRouter extends _i2.RootStackRouter {
-  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
+  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -74,6 +75,19 @@ class AppRouter extends _i2.RootStackRouter {
     CreateNamedTypeRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i8.CreateNamedTypeScreen());
+    },
+    EditNamedTypeRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<EditNamedTypeRouteArgs>(
+          orElse: () => EditNamedTypeRouteArgs(
+              namedTypeId: pathParams.getString(':namedTypeId'),
+              currentValue: pathParams.getString(':currentValue')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i9.EditNamedTypeScreen(
+              key: args.key,
+              namedTypeId: args.namedTypeId,
+              currentValue: args.currentValue));
     }
   };
 
@@ -100,7 +114,9 @@ class AppRouter extends _i2.RootStackRouter {
                 _i2.RouteConfig(NamedTypesRoute.name,
                     path: '', parent: NamedTypesRouter.name),
                 _i2.RouteConfig(CreateNamedTypeRoute.name,
-                    path: 'create', parent: NamedTypesRouter.name)
+                    path: 'create', parent: NamedTypesRouter.name),
+                _i2.RouteConfig(EditNamedTypeRoute.name,
+                    path: 'edit', parent: NamedTypesRouter.name)
               ])
         ])
       ];
@@ -155,7 +171,7 @@ class CreateCollectionRoute extends _i2.PageRouteInfo<void> {
 /// generated route for
 /// [_i5.CollectionScreen]
 class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
-  CollectionRoute({_i9.Key? key, required String collectionId})
+  CollectionRoute({_i10.Key? key, required String collectionId})
       : super(CollectionRoute.name,
             path: 'view',
             args: CollectionRouteArgs(key: key, collectionId: collectionId),
@@ -167,7 +183,7 @@ class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
 class CollectionRouteArgs {
   const CollectionRouteArgs({this.key, required this.collectionId});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   final String collectionId;
 
@@ -181,7 +197,7 @@ class CollectionRouteArgs {
 /// [_i6.CreateDataPointsScreen]
 class CreateDataPointsRoute
     extends _i2.PageRouteInfo<CreateDataPointsRouteArgs> {
-  CreateDataPointsRoute({_i9.Key? key, required String collectionId})
+  CreateDataPointsRoute({_i10.Key? key, required String collectionId})
       : super(CreateDataPointsRoute.name,
             path: 'addDataGroup',
             args:
@@ -194,7 +210,7 @@ class CreateDataPointsRoute
 class CreateDataPointsRouteArgs {
   const CreateDataPointsRouteArgs({this.key, required this.collectionId});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   final String collectionId;
 
@@ -219,4 +235,39 @@ class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
       : super(CreateNamedTypeRoute.name, path: 'create');
 
   static const String name = 'CreateNamedTypeRoute';
+}
+
+/// generated route for
+/// [_i9.EditNamedTypeScreen]
+class EditNamedTypeRoute extends _i2.PageRouteInfo<EditNamedTypeRouteArgs> {
+  EditNamedTypeRoute(
+      {_i10.Key? key,
+      required String namedTypeId,
+      required String currentValue})
+      : super(EditNamedTypeRoute.name,
+            path: 'edit',
+            args: EditNamedTypeRouteArgs(
+                key: key, namedTypeId: namedTypeId, currentValue: currentValue),
+            rawPathParams: {
+              ':namedTypeId': namedTypeId,
+              ':currentValue': currentValue
+            });
+
+  static const String name = 'EditNamedTypeRoute';
+}
+
+class EditNamedTypeRouteArgs {
+  const EditNamedTypeRouteArgs(
+      {this.key, required this.namedTypeId, required this.currentValue});
+
+  final _i10.Key? key;
+
+  final String namedTypeId;
+
+  final String currentValue;
+
+  @override
+  String toString() {
+    return 'EditNamedTypeRouteArgs{key: $key, namedTypeId: $namedTypeId, currentValue: $currentValue}';
+  }
 }

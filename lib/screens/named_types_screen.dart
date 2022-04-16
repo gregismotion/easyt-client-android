@@ -43,7 +43,10 @@ class _NamedTypesScreenState extends State<NamedTypesScreen> {
 
   Widget _buildNamedType(NamedType namedType) {
     return ListTile(
-      title: Text("${namedType.name} (${basicTypeToName(namedType.basicType)})"),
+      title:
+          Text("${namedType.name} (${basicTypeToName(namedType.basicType)})"),
+      onLongPress: () => AutoRouter.of(context).push(EditNamedTypeRoute(
+          namedTypeId: namedType.id, currentValue: namedType.name)),
     );
   }
 

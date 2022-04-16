@@ -4,6 +4,7 @@ import 'package:easyt/screens/collections_screen.dart';
 import 'package:easyt/screens/create_collection_screen.dart';
 import 'package:easyt/screens/create_data_points_screen.dart';
 import 'package:easyt/screens/create_named_type_screen.dart';
+import 'package:easyt/screens/edit_named_type_screen.dart';
 import 'package:easyt/screens/home_screen.dart';
 import 'package:easyt/screens/named_types_screen.dart';
 
@@ -26,6 +27,7 @@ import 'package:easyt/screens/named_types_screen.dart';
         children: [
           AutoRoute(path: '', page: NamedTypesScreen),
           AutoRoute(path: 'create', page: CreateNamedTypeScreen),
+          AutoRoute(path: 'edit', page: EditNamedTypeScreen),
         ]),
   ]),
 ])
