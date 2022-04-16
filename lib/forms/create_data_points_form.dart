@@ -69,9 +69,13 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     List<Widget> children = [];
     for (DataPoint dataPoint in dataGroup.dataPoints) {
       children.add(CreateDataPointWidget(
-        namedTypes: namedTypes,
-        dataPoint: dataPoint,
-      ));
+          namedTypes: namedTypes,
+          dataPoint: dataPoint,
+          deleteCallback: () {
+            setState(() {
+              dataGroup.dataPoints.remove(dataPoint);
+            });
+          }));
     }
     children.addAll([
       ElevatedButton(onPressed: _addDataPoint, child: const Icon(Icons.add)),
@@ -82,9 +86,12 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
           child: const Icon(Icons.calendar_month)),
       ElevatedButton(onPressed: _createDataPoints, child: const Text("Create"))
     ]);
-    return Form(
-      key: _formKey,
-      child: Column(children: children),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Form(
+        key: _formKey,
+        child: Column(children: children),
+      ),
     );
   }
 }

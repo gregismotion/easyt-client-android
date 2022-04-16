@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 class CreateDataPointWidget extends StatefulWidget {
   final List<NamedType> namedTypes;
   final DataPoint dataPoint;
+  final void Function() deleteCallback;
 
   const CreateDataPointWidget(
-      {Key? key, required this.namedTypes, required this.dataPoint})
+      {Key? key,
+      required this.namedTypes,
+      required this.dataPoint,
+      required this.deleteCallback})
       : super(key: key);
 
   @override
@@ -27,6 +31,8 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
     }
     return Column(
       children: [
+        ElevatedButton(
+            onPressed: widget.deleteCallback, child: const Icon(Icons.remove)),
         TextFormField(
           decoration: const InputDecoration(
               border: UnderlineInputBorder(), labelText: "Data point value"),
@@ -45,7 +51,10 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
             items: items,
             onChanged: (value) {
               widget.dataPoint.namedType = value ?? widget.namedTypes[0];
-            })
+            }),
+        const Divider(
+            thickness: 2,
+            color: Color.fromARGB(255, 0, 0, 0)) // TODO: proper themeing
       ],
     );
   }

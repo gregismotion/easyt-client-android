@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
