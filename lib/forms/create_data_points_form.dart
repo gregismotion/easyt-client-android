@@ -18,14 +18,11 @@ class CreateDataPointsForm extends StatefulWidget {
 class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
-  List<NamedType> namedTypes = [];
   DataGroup dataGroup = DataGroup.local(DateTime.now(), []);
 
   @override
   void initState() {
     super.initState();
-    namedTypes = Provider.of<DataProvider>(context, listen: false)
-        .getNamedTypes(100, ""); // TODO: proper pagination!
   }
 
   @override
@@ -41,6 +38,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   }
 
   void _addDataPoint() {
+    List<NamedType> namedTypes = Provider.of<DataProvider>(context, listen: false).getNamedTypes(1, "");
     if (namedTypes.isNotEmpty) {
       setState(() {
         dataGroup.dataPoints.add(DataPoint.local(namedTypes[0], ""));
