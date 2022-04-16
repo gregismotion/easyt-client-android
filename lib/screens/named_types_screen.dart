@@ -68,8 +68,9 @@ class _NamedTypesScreenState extends State<NamedTypesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _namedTypes.addAll(
-        Provider.of<DataProvider>(context).getNamedTypes(10, _getLastId()));
+    _namedTypes.clear();
+    _namedTypes
+        .addAll(Provider.of<DataProvider>(context).getNamedTypes(10, ""));
     return Scaffold(
       body: _buildNamedTypes(),
       floatingActionButton: FloatingActionButton(

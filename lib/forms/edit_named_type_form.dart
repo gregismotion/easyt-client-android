@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,13 @@ class _EditNamedTypeFormState extends State<EditNamedTypeForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
+          ElevatedButton(
+              onPressed: () {
+                Provider.of<DataProvider>(context, listen: false)
+                    .deleteNamedType(widget.namedTypeId);
+                AutoRouter.of(context).pop();
+              },
+              child: const Icon(Icons.remove)),
           TextFormField(
             autofocus: true,
             decoration: const InputDecoration(
