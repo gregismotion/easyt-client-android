@@ -3,94 +3,94 @@ import 'package:easyt/data/memory.dart';
 import 'package:flutter/widgets.dart';
 
 class DataProvider extends ChangeNotifier implements Data {
-  final Data data = DataMemory();
+  final Data _data = DataMemory();
 
   @override
   ReferenceGroup addDataGroup(String colId, DataGroup dataGroup) {
-    var result = data.addDataGroup(colId, dataGroup);
+    var result = _data.addDataGroup(colId, dataGroup);
     notifyListeners();
     return result;
   }
 
   @override
   CollectionReference createCollection(String name) {
-    var result = data.createCollection(name);
+    var result = _data.createCollection(name);
     notifyListeners();
     return result;
   }
 
   @override
   NamedType createNamedType(NamedType namedType) {
-    var result = data.createNamedType(namedType);
+    var result = _data.createNamedType(namedType);
     notifyListeners();
     return result;
   }
 
   @override
   void deleteCollection(String id) {
-    data.deleteCollection(id);
+    _data.deleteCollection(id);
     notifyListeners();
   }
 
   @override
-  void deleteDataPoint(String colId, groupId, dataId) {
-    data.deleteDataPoint(colId, groupId, dataId);
+  void deleteDataPoint(String colId, String groupId, String dataId) {
+    _data.deleteDataPoint(colId, groupId, dataId);
     notifyListeners();
   }
 
   @override
   void deleteNamedType(String id) {
-    data.deleteNamedType(id);
+    _data.deleteNamedType(id);
     notifyListeners();
   }
 
   @override
   List<BasicType> getBasicTypes() {
-    return data.getBasicTypes();
+    return _data.getBasicTypes();
   }
 
   @override
   List<CollectionReference> getCollectionReferences(int size, String lastId) {
-    return data.getCollectionReferences(size, lastId);
+    return _data.getCollectionReferences(size, lastId);
   }
 
   @override
   DataPoint getDataPoint(String colId, String groupId, String dataId) {
-    return data.getDataPoint(colId, groupId, dataId);
+    return _data.getDataPoint(colId, groupId, dataId);
   }
 
   @override
   NamedType getNamedType(String id) {
-    return data.getNamedType(id);
+    return _data.getNamedType(id);
   }
 
   @override
   List<NamedType> getNamedTypes(int size, String lastId) {
-    return data.getNamedTypes(size, lastId);
+    return _data.getNamedTypes(size, lastId);
   }
 
   @override
   ReferenceCollection getReferenceCollection(
       String id, int size, String lastId) {
-    return data.getReferenceCollection(id, size, lastId);
+    return _data.getReferenceCollection(id, size, lastId);
   }
 
   @override
   void editCollection(String id, String name) {
-    data.editCollection(id, name);
+    _data.editCollection(id, name);
     notifyListeners();
   }
 
   @override
   void editDataPoint(
       String colId, String groupId, String dataId, String newValue) {
-    data.editDataPoint(colId, groupId, dataId, newValue);
+    _data.editDataPoint(colId, groupId, dataId, newValue);
     notifyListeners();
   }
 
   @override
   void editNamedType(String id, String name) {
-    data.editNamedType(id, name);
+    _data.editNamedType(id, name);
     notifyListeners();
   }
 }
