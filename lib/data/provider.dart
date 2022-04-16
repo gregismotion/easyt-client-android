@@ -76,17 +76,21 @@ class DataProvider extends ChangeNotifier implements Data {
   }
 
   @override
-  void editCollection(String id, name) {
-    // TODO: implement editCollection
+  void editCollection(String id, String name) {
+    data.editCollection(id, name);
+    notifyListeners();
   }
 
   @override
-  void editDataPoint(String colId, groupId, dataId, newValue) {
-    // TODO: implement editDataPoint
+  void editDataPoint(
+      String colId, String groupId, String dataId, String newValue) {
+    data.editDataPoint(colId, groupId, dataId, newValue);
+    notifyListeners();
   }
 
   @override
-  void editNamedType(String id, name) {
-    // TODO: implement editNamedType
+  void editNamedType(String id, String name) {
+    data.editNamedType(id, name);
+    notifyListeners();
   }
 }
