@@ -30,8 +30,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   Widget _buildCollection(CollectionReference collection) {
-    return CollectionTile(
-        collectionId: collection.id, collectionName: collection.name);
+    return CollectionTile(collectionId: collection.id);
   }
 
   void _scrollListener() {
