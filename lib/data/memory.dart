@@ -5,7 +5,7 @@ class Collection {
   final Uuid uuid = const Uuid();
 
   final String id;
-  final String name;
+  String name;
   final List<DataGroup> dataGroups;
   Collection(this.id, this.name, this.dataGroups);
   Collection.create(this.name)
@@ -113,6 +113,11 @@ class DataMemory implements Data {
   }
 
   @override
+  void editNamedType(String id, name) {
+    getNamedType(id).name = name;
+  }
+
+  @override
   void deleteNamedType(String id) {
     namedTypes.remove(getNamedType(id));
   }
@@ -154,12 +159,17 @@ class DataMemory implements Data {
   }
 
   @override
+  void editCollection(String id, name) {
+    _getCollection(id).name = name;
+  }
+
+  @override
   void deleteCollection(String id) {
     collections.remove(_getCollection(id));
   }
 
   @override
-  DataPoint getDataPoint(String colId, String groupId, String dataId) {
+  DataPoint getDataPoint(String colId, groupId, dataId) {
     final collection = _getCollection(colId);
     return collection.getDataPoint(groupId, dataId);
   }
@@ -174,5 +184,10 @@ class DataMemory implements Data {
   void deleteDataPoint(String colId, groupId, dataId) {
     final collection = _getCollection(colId);
     collection.deleteDataPoint(groupId, dataId);
+  }
+
+  @override
+  void editDataPoint(String colId, groupId, dataId, newValue) {
+    getDataPoint(colId, groupId, dataId).value = newValue;
   }
 }
