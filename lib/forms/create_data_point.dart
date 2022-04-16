@@ -51,7 +51,8 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
             items: items,
             onChanged: (value) {
               widget.dataPoint.namedType = value ?? widget.namedTypes[0];
-            }),
+            },
+            value: widget.dataPoint.namedType),
         const Divider(
             thickness: 2,
             color: Color.fromARGB(255, 0, 0, 0)) // TODO: proper themeing
