@@ -12,7 +12,7 @@ class CollectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String collectionName = Provider.of<DataProvider>(context)
+    String collectionName = Provider.of<CollectionProvider>(context)
         .getReferenceCollection(collectionId, 0, "")
         .name;
     return ListTile(

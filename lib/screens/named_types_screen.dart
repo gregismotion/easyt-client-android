@@ -33,7 +33,7 @@ class _NamedTypesScreenState extends State<NamedTypesScreen> {
     const int size = 10;
     try {
       final List<NamedType> namedTypePage =
-          Provider.of<DataProvider>(context, listen: false)
+          Provider.of<TypeProvider>(context, listen: false)
               .getNamedTypes(size, pageKey);
       if (namedTypePage.length < size) {
         _controller.appendLastPage(namedTypePage);
@@ -50,7 +50,7 @@ class _NamedTypesScreenState extends State<NamedTypesScreen> {
   }
 
   void _prepareListener() {
-    Provider.of<DataProvider>(context).addListener(() => _controller.refresh());
+    Provider.of<TypeProvider>(context).addListener(() => _controller.refresh());
   }
 
   @override

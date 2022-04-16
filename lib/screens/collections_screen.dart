@@ -38,7 +38,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
     const int size = 10;
     try {
       final List<CollectionReference> collectionReferencePage =
-          Provider.of<DataProvider>(context, listen: false)
+          Provider.of<CollectionProvider>(context, listen: false)
               .getCollectionReferences(size, pageKey);
       if (collectionReferencePage.length < size) {
         _controller.appendLastPage(collectionReferencePage);
@@ -52,7 +52,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   }
 
   void _prepareListener() {
-    Provider.of<DataProvider>(context).addListener(() => _controller.refresh());
+    Provider.of<CollectionProvider>(context)
+        .addListener(() => _controller.refresh());
   }
 
   @override

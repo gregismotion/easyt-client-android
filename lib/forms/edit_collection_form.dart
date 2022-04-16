@@ -20,7 +20,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
 
   void _editCollection() {
     if (_formKey.currentState!.validate()) {
-      Provider.of<DataProvider>(context, listen: false)
+      Provider.of<CollectionProvider>(context, listen: false)
           .editCollection(widget.collectionId, _controller.text);
       Navigator.pop(context);
     }
@@ -41,7 +41,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
         children: <Widget>[
           ElevatedButton(
               onPressed: () {
-                Provider.of<DataProvider>(context, listen: false)
+                Provider.of<CollectionProvider>(context, listen: false)
                     .deleteCollection(widget.collectionId);
                 AutoRouter.of(context).pop();
               },

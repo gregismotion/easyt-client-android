@@ -21,7 +21,7 @@ class _EditNamedTypeFormState extends State<EditNamedTypeForm> {
 
   void _editNamedType() {
     if (_formKey.currentState!.validate()) {
-      Provider.of<DataProvider>(context, listen: false)
+      Provider.of<TypeProvider>(context, listen: false)
           .editNamedType(widget.namedTypeId, _controller.text);
       Navigator.pop(context);
     }
@@ -42,7 +42,7 @@ class _EditNamedTypeFormState extends State<EditNamedTypeForm> {
         children: <Widget>[
           ElevatedButton(
               onPressed: () {
-                Provider.of<DataProvider>(context, listen: false)
+                Provider.of<TypeProvider>(context, listen: false)
                     .deleteNamedType(widget.namedTypeId);
                 AutoRouter.of(context).pop();
               },

@@ -13,7 +13,7 @@ class NamedTypeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NamedType namedType =
-        Provider.of<DataProvider>(context).getNamedType(namedTypeId);
+        Provider.of<TypeProvider>(context).getNamedType(namedTypeId);
     return ListTile(
       title:
           Text("${namedType.name} (${basicTypeToName(namedType.basicType)})"),

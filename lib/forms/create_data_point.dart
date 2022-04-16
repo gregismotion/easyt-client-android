@@ -22,7 +22,7 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
   Widget build(BuildContext context) {
     List<DropdownMenuItem<NamedType>> items = [];
     for (NamedType namedType
-        in Provider.of<DataProvider>(context).getNamedTypes(100, "")) {
+        in Provider.of<TypeProvider>(context).getNamedTypes(100, "")) {
       // TODO: proper pagination!
       items.add(DropdownMenuItem<NamedType>(
         child: Text(namedType.name),

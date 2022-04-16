@@ -22,9 +22,10 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
 
   List<NamedType> getUsedNamedTypes() {
     List<NamedType> usedNamedTypes = [];
-    for (ReferenceGroup referenceGroup in Provider.of<DataProvider>(context, listen: false)
-        .getReferenceCollection(widget.collectionId, 100, "")
-        .referenceGroups) {
+    for (ReferenceGroup referenceGroup
+        in Provider.of<CollectionProvider>(context, listen: false)
+            .getReferenceCollection(widget.collectionId, 100, "")
+            .referenceGroups) {
       for (DataPointReference reference in referenceGroup.dataReferences) {
         if (!usedNamedTypes.contains(reference.namedType)) {
           usedNamedTypes.add(reference.namedType);
@@ -56,7 +57,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
 
   void _addDataPoint() {
     List<NamedType> namedTypes =
-        Provider.of<DataProvider>(context, listen: false).getNamedTypes(1, "");
+        Provider.of<TypeProvider>(context, listen: false).getNamedTypes(1, "");
     if (namedTypes.isNotEmpty) {
       setState(() {
         dataGroup.dataPoints.add(DataPoint.local(namedTypes[0], ""));

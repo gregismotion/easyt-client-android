@@ -18,7 +18,7 @@ class _CreateNamedTypeFormState extends State<CreateNamedTypeForm> {
 
   void _createNamedType() {
     if (_formKey.currentState!.validate()) {
-      Provider.of<DataProvider>(context, listen: false)
+      Provider.of<TypeProvider>(context, listen: false)
           .createNamedType(NamedType.local(_controller.text, _basicType));
       Navigator.pop(context);
     }

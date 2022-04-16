@@ -15,7 +15,7 @@ class _CreateCollectionFormState extends State<CreateCollectionForm> {
 
   void _createCollection() {
     if (_formKey.currentState!.validate()) {
-      Provider.of<DataProvider>(context, listen: false)
+      Provider.of<CollectionProvider>(context, listen: false)
           .createCollection(_controller.text);
       Navigator.pop(context);
     }

@@ -27,8 +27,9 @@ class CollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ReferenceCollection collection = Provider.of<DataProvider>(context)
+    ReferenceCollection collection = Provider.of<CollectionProvider>(context)
         .getReferenceCollection(collectionId, 0, "");
+    context.watch<DataProvider>();
     return Scaffold(
       body: _buildCollection(context, collection),
       floatingActionButton: FloatingActionButton(

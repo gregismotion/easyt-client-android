@@ -12,7 +12,7 @@ class DataPointTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ReferenceCollection collection = Provider.of<DataProvider>(context)
+    ReferenceCollection collection = Provider.of<CollectionProvider>(context)
         .getReferenceCollection(collectionId, 100, ""); // TODO: pagination
     Map<int, DataRow> tempRows = {};
     Map<int, DataColumn> tempColumns = {
@@ -44,7 +44,10 @@ class DataPointTable extends StatelessWidget {
           tempRows[rowIndex]?.cells[columnMap[reference.namedType] ?? 1] =
               DataCell(
             Text(dataPoint.value),
-            onLongPress: () => AutoRouter.of(context).push(EditDataPointRoute(collectionId: collection.id, groupId: referenceGroup.id, dataId: dataPoint.id)),
+            onLongPress: () => AutoRouter.of(context).push(EditDataPointRoute(
+                collectionId: collection.id,
+                groupId: referenceGroup.id,
+                dataId: dataPoint.id)),
           );
         }
         rowIndex++;
