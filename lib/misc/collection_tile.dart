@@ -13,10 +13,11 @@ class CollectionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(collectionName),
-      onTap: () {
-        AutoRouter.of(context)
-            .push(CollectionRoute(collectionId: collectionId));
-      },
+      onTap: () => AutoRouter.of(context)
+          .push(CollectionRoute(collectionId: collectionId)),
+      onLongPress: () => AutoRouter.of(context)
+          .push(EditCollectionRoute(collectionId: collectionId, currentName: collectionName)),
+
     );
   }
 }

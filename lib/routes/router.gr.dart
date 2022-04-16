@@ -11,19 +11,20 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/material.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 
-import '../screens/collection_screen.dart' as _i5;
+import '../screens/collection_screen.dart' as _i6;
 import '../screens/collections_screen.dart' as _i3;
 import '../screens/create_collection_screen.dart' as _i4;
-import '../screens/create_data_points_screen.dart' as _i6;
-import '../screens/create_named_type_screen.dart' as _i8;
-import '../screens/edit_named_type_screen.dart' as _i9;
+import '../screens/create_data_points_screen.dart' as _i7;
+import '../screens/create_named_type_screen.dart' as _i9;
+import '../screens/edit_collection_screen.dart' as _i5;
+import '../screens/edit_named_type_screen.dart' as _i10;
 import '../screens/home_screen.dart' as _i1;
-import '../screens/named_types_screen.dart' as _i7;
+import '../screens/named_types_screen.dart' as _i8;
 
 class AppRouter extends _i2.RootStackRouter {
-  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
+  AppRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -48,6 +49,15 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i4.CreateCollectionScreen());
     },
+    EditCollectionRoute.name: (routeData) {
+      final args = routeData.argsAs<EditCollectionRouteArgs>();
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i5.EditCollectionScreen(
+              key: args.key,
+              collectionId: args.collectionId,
+              currentName: args.currentName));
+    },
     CollectionRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CollectionRouteArgs>(
@@ -55,7 +65,7 @@ class AppRouter extends _i2.RootStackRouter {
               collectionId: pathParams.getString('collectionId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i5.CollectionScreen(
+          child: _i6.CollectionScreen(
               key: args.key, collectionId: args.collectionId));
     },
     CreateDataPointsRoute.name: (routeData) {
@@ -65,16 +75,16 @@ class AppRouter extends _i2.RootStackRouter {
               collectionId: pathParams.getString('collectionId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i6.CreateDataPointsScreen(
+          child: _i7.CreateDataPointsScreen(
               key: args.key, collectionId: args.collectionId));
     },
     NamedTypesRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i7.NamedTypesScreen());
+          routeData: routeData, child: const _i8.NamedTypesScreen());
     },
     CreateNamedTypeRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.CreateNamedTypeScreen());
+          routeData: routeData, child: const _i9.CreateNamedTypeScreen());
     },
     EditNamedTypeRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -84,7 +94,7 @@ class AppRouter extends _i2.RootStackRouter {
               currentValue: pathParams.getString(':currentValue')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i9.EditNamedTypeScreen(
+          child: _i10.EditNamedTypeScreen(
               key: args.key,
               namedTypeId: args.namedTypeId,
               currentValue: args.currentValue));
@@ -102,6 +112,8 @@ class AppRouter extends _i2.RootStackRouter {
                     path: '', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CreateCollectionRoute.name,
                     path: 'create', parent: CollectionsRouter.name),
+                _i2.RouteConfig(EditCollectionRoute.name,
+                    path: 'edit', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CollectionRoute.name,
                     path: 'view', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CreateDataPointsRoute.name,
@@ -169,9 +181,42 @@ class CreateCollectionRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.CollectionScreen]
+/// [_i5.EditCollectionScreen]
+class EditCollectionRoute extends _i2.PageRouteInfo<EditCollectionRouteArgs> {
+  EditCollectionRoute(
+      {_i11.Key? key,
+      required String collectionId,
+      required String currentName})
+      : super(EditCollectionRoute.name,
+            path: 'edit',
+            args: EditCollectionRouteArgs(
+                key: key,
+                collectionId: collectionId,
+                currentName: currentName));
+
+  static const String name = 'EditCollectionRoute';
+}
+
+class EditCollectionRouteArgs {
+  const EditCollectionRouteArgs(
+      {this.key, required this.collectionId, required this.currentName});
+
+  final _i11.Key? key;
+
+  final String collectionId;
+
+  final String currentName;
+
+  @override
+  String toString() {
+    return 'EditCollectionRouteArgs{key: $key, collectionId: $collectionId, currentName: $currentName}';
+  }
+}
+
+/// generated route for
+/// [_i6.CollectionScreen]
 class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
-  CollectionRoute({_i10.Key? key, required String collectionId})
+  CollectionRoute({_i11.Key? key, required String collectionId})
       : super(CollectionRoute.name,
             path: 'view',
             args: CollectionRouteArgs(key: key, collectionId: collectionId),
@@ -183,7 +228,7 @@ class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
 class CollectionRouteArgs {
   const CollectionRouteArgs({this.key, required this.collectionId});
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   final String collectionId;
 
@@ -194,10 +239,10 @@ class CollectionRouteArgs {
 }
 
 /// generated route for
-/// [_i6.CreateDataPointsScreen]
+/// [_i7.CreateDataPointsScreen]
 class CreateDataPointsRoute
     extends _i2.PageRouteInfo<CreateDataPointsRouteArgs> {
-  CreateDataPointsRoute({_i10.Key? key, required String collectionId})
+  CreateDataPointsRoute({_i11.Key? key, required String collectionId})
       : super(CreateDataPointsRoute.name,
             path: 'addDataGroup',
             args:
@@ -210,7 +255,7 @@ class CreateDataPointsRoute
 class CreateDataPointsRouteArgs {
   const CreateDataPointsRouteArgs({this.key, required this.collectionId});
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   final String collectionId;
 
@@ -221,7 +266,7 @@ class CreateDataPointsRouteArgs {
 }
 
 /// generated route for
-/// [_i7.NamedTypesScreen]
+/// [_i8.NamedTypesScreen]
 class NamedTypesRoute extends _i2.PageRouteInfo<void> {
   const NamedTypesRoute() : super(NamedTypesRoute.name, path: '');
 
@@ -229,7 +274,7 @@ class NamedTypesRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.CreateNamedTypeScreen]
+/// [_i9.CreateNamedTypeScreen]
 class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
   const CreateNamedTypeRoute()
       : super(CreateNamedTypeRoute.name, path: 'create');
@@ -238,10 +283,10 @@ class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.EditNamedTypeScreen]
+/// [_i10.EditNamedTypeScreen]
 class EditNamedTypeRoute extends _i2.PageRouteInfo<EditNamedTypeRouteArgs> {
   EditNamedTypeRoute(
-      {_i10.Key? key,
+      {_i11.Key? key,
       required String namedTypeId,
       required String currentValue})
       : super(EditNamedTypeRoute.name,
@@ -260,7 +305,7 @@ class EditNamedTypeRouteArgs {
   const EditNamedTypeRouteArgs(
       {this.key, required this.namedTypeId, required this.currentValue});
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   final String namedTypeId;
 
