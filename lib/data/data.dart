@@ -11,7 +11,7 @@ abstract class Data {
   List<NamedType> getNamedTypes(int size, String lastId);
   NamedType getNamedType(String id);
   NamedType createNamedType(NamedType namedType);
-  void editNamedType(String id, name);
+  void editNamedType(String id, String name);
   void deleteNamedType(String id);
 
   //collections
@@ -19,14 +19,15 @@ abstract class Data {
   ReferenceCollection getReferenceCollection(
       String id, int size, String lastId);
   CollectionReference createCollection(String name);
-  void editCollection(String id, name);
+  void editCollection(String id, String name);
   void deleteCollection(String id);
 
   //data
-  DataPoint getDataPoint(String colId, groupId, dataId);
+  DataPoint getDataPoint(String colId, String groupId, String dataId);
   ReferenceGroup addDataGroup(String colId, DataGroup dataGroup);
-  void editDataPoint(String colId, groupId, dataId, newValue);
-  void deleteDataPoint(String colId, groupId, dataId);
+  void editDataPoint(
+      String colId, String groupId, String dataId, String newValue);
+  void deleteDataPoint(String colId, String groupId, String dataId);
 }
 
 // types

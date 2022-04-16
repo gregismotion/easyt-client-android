@@ -74,4 +74,19 @@ class DataProvider extends ChangeNotifier implements Data {
       String id, int size, String lastId) {
     return data.getReferenceCollection(id, size, lastId);
   }
+
+  @override
+  void editCollection(String id, name) {
+    // TODO: implement editCollection
+  }
+
+  @override
+  void editDataPoint(String colId, groupId, dataId, newValue) {
+    // TODO: implement editDataPoint
+  }
+
+  @override
+  void editNamedType(String id, name) {
+    // TODO: implement editNamedType
+  }
 }
