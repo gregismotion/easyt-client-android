@@ -69,7 +69,6 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     List<Widget> children = [];
     for (DataPoint dataPoint in dataGroup.dataPoints) {
       children.add(CreateDataPointWidget(
-          namedTypes: namedTypes,
           dataPoint: dataPoint,
           deleteCallback: () {
             setState(() {

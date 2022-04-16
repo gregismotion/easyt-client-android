@@ -1,16 +1,14 @@
 import 'package:easyt/data/data.dart';
+import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CreateDataPointWidget extends StatefulWidget {
-  final List<NamedType> namedTypes;
   final DataPoint dataPoint;
   final void Function() deleteCallback;
 
   const CreateDataPointWidget(
-      {Key? key,
-      required this.namedTypes,
-      required this.dataPoint,
-      required this.deleteCallback})
+      {Key? key, required this.dataPoint, required this.deleteCallback})
       : super(key: key);
 
   @override
@@ -23,7 +21,9 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<NamedType>> items = [];
-    for (NamedType namedType in widget.namedTypes) {
+    for (NamedType namedType
+        in Provider.of<DataProvider>(context).getNamedTypes(100, "")) {
+      // TODO: proper pagination!
       items.add(DropdownMenuItem<NamedType>(
         child: Text(namedType.name),
         value: namedType,
@@ -50,7 +50,8 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
         DropdownButtonFormField<NamedType>(
             items: items,
             onChanged: (value) {
-              widget.dataPoint.namedType = value ?? widget.namedTypes[0];
+              widget.dataPoint.namedType =
+                  (value ?? items[0].value)!; // NOTE: is this safe?
             },
             value: widget.dataPoint.namedType),
         const Divider(
