@@ -9,6 +9,10 @@ class NotFound implements Exception {
 
 abstract class Data {
   // types
+  // TODO: date
+  // TODO: tags
+  // TODO: icon (basic, custom)
+  // TODO: more basic types
   List<BasicType> getBasicTypes();
   List<NamedType> getNamedTypes(int size, String lastId);
   NamedType getNamedType(String id);
@@ -17,6 +21,9 @@ abstract class Data {
   void deleteNamedType(String id);
 
   //collections
+  // TODO: date
+  // TODO: tags
+  // TODO: icon (basic, custom)
   List<CollectionReference> getCollectionReferences(int size, String lastId);
   ReferenceCollection getReferenceCollection(
       String id, int size, String lastId);
