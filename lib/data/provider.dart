@@ -78,6 +78,16 @@ class DataProvider extends ChangeNotifier {
     return result;
   }
 
+  void editDataGroup(String colId, String groupId, DateTime date) {
+    _data.editDataGroup(colId, groupId, date);
+    notifyListeners();
+  }
+
+  void deleteDataGroup(String colId, String groupId) {
+    _data.deleteDataGroup(colId, groupId);
+    notifyListeners();
+  }
+
   void editDataPoint(
       String colId, String groupId, String dataId, String newValue) {
     _data.editDataPoint(colId, groupId, dataId, newValue);

@@ -59,13 +59,14 @@ class Collection {
     return newGroup.toReferenceGroup();
   }
 
-  void _deleteDataGroup(DataGroup dataGroup) => dataGroups.remove(dataGroup);
+  void deleteDataGroup(String groupId) =>
+      dataGroups.remove(getDataGroup(groupId));
 
   void deleteDataPoint(String groupId, String dataId) {
     DataGroup group = getDataGroup(groupId);
     group.dataPoints.remove(getDataPoint(groupId, dataId));
     if (group.dataPoints.isEmpty) {
-      _deleteDataGroup(group);
+      deleteDataGroup(groupId);
     }
   }
 }
@@ -203,6 +204,11 @@ class DataMemory implements Data {
   @override
   void editDataGroup(String colId, String groupId, DateTime date) {
     _getCollection(colId).getDataGroup(groupId).date = date;
+  }
+
+  @override
+  void deleteDataGroup(String colId, String groupId) {
+    _getCollection(colId).deleteDataGroup(groupId);
   }
 
   @override

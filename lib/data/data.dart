@@ -28,6 +28,7 @@ abstract class Data {
   DataPoint getDataPoint(String colId, String groupId, String dataId);
   ReferenceGroup addDataGroup(String colId, DataGroup dataGroup);
   void editDataGroup(String colId, String groupId, DateTime date);
+  void deleteDataGroup(String colId, String groupId);
   void editDataPoint(
       String colId, String groupId, String dataId, String newValue);
   void deleteDataPoint(String colId, String groupId, String dataId);
