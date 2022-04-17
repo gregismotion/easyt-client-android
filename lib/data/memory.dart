@@ -194,6 +194,11 @@ class DataMemory implements Data {
   }
 
   @override
+  void editDataGroup(String colId, String groupId, DateTime date) {
+    _getCollection(colId).getDataGroup(groupId).date = date;
+  }
+
+  @override
   void deleteDataPoint(String colId, String groupId, String dataId) {
     final collection = _getCollection(colId);
     collection.deleteDataPoint(groupId, dataId);
