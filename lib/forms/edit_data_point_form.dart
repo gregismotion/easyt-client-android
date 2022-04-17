@@ -4,12 +4,12 @@ import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditDataPointWidget extends StatefulWidget {
+class EditDataPointForm extends StatefulWidget {
   final String collectionId;
   final String groupId;
   final String dataId;
 
-  const EditDataPointWidget(
+  const EditDataPointForm(
       {Key? key,
       required this.collectionId,
       required this.groupId,
@@ -17,10 +17,10 @@ class EditDataPointWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<EditDataPointWidget> createState() => _EditDataPointWidgetState();
+  State<EditDataPointForm> createState() => _EditDataPointFormState();
 }
 
-class _EditDataPointWidgetState extends State<EditDataPointWidget> {
+class _EditDataPointFormState extends State<EditDataPointForm> {
   final _controller = TextEditingController();
 
   @override
