@@ -11,21 +11,22 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flutter/material.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 
 import '../screens/collection_screen.dart' as _i6;
 import '../screens/collections_screen.dart' as _i3;
 import '../screens/create_collection_screen.dart' as _i4;
 import '../screens/create_data_points_screen.dart' as _i7;
-import '../screens/create_named_type_screen.dart' as _i10;
+import '../screens/create_named_type_screen.dart' as _i11;
 import '../screens/edit_collection_screen.dart' as _i5;
-import '../screens/edit_data_point_screen.dart' as _i8;
-import '../screens/edit_named_type_screen.dart' as _i11;
+import '../screens/edit_data_group_screen.dart' as _i8;
+import '../screens/edit_data_point_screen.dart' as _i9;
+import '../screens/edit_named_type_screen.dart' as _i12;
 import '../screens/home_screen.dart' as _i1;
-import '../screens/named_types_screen.dart' as _i9;
+import '../screens/named_types_screen.dart' as _i10;
 
 class AppRouter extends _i2.RootStackRouter {
-  AppRouter([_i12.GlobalKey<_i12.NavigatorState>? navigatorKey])
+  AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -79,6 +80,21 @@ class AppRouter extends _i2.RootStackRouter {
           child: _i7.CreateDataPointsScreen(
               key: args.key, collectionId: args.collectionId));
     },
+    EditDataGroupRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<EditDataGroupRouteArgs>(
+          orElse: () => EditDataGroupRouteArgs(
+              collectionId: pathParams.getString('collectionId'),
+              groupId: pathParams.getString('groupId'),
+              currentDate: pathParams.getString('currentDate')));
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i8.EditDataGroupScreen(
+              key: args.key,
+              collectionId: args.collectionId,
+              groupId: args.groupId,
+              currentDate: args.currentDate));
+    },
     EditDataPointRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<EditDataPointRouteArgs>(
@@ -88,7 +104,7 @@ class AppRouter extends _i2.RootStackRouter {
               dataId: pathParams.getString('dataId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i8.EditDataPointScreen(
+          child: _i9.EditDataPointScreen(
               key: args.key,
               collectionId: args.collectionId,
               groupId: args.groupId,
@@ -96,11 +112,11 @@ class AppRouter extends _i2.RootStackRouter {
     },
     NamedTypesRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.NamedTypesScreen());
+          routeData: routeData, child: const _i10.NamedTypesScreen());
     },
     CreateNamedTypeRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.CreateNamedTypeScreen());
+          routeData: routeData, child: const _i11.CreateNamedTypeScreen());
     },
     EditNamedTypeRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -110,7 +126,7 @@ class AppRouter extends _i2.RootStackRouter {
               currentValue: pathParams.getString(':currentValue')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i11.EditNamedTypeScreen(
+          child: _i12.EditNamedTypeScreen(
               key: args.key,
               namedTypeId: args.namedTypeId,
               currentValue: args.currentValue));
@@ -134,6 +150,8 @@ class AppRouter extends _i2.RootStackRouter {
                     path: 'view', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CreateDataPointsRoute.name,
                     path: 'addDataGroup', parent: CollectionsRouter.name),
+                _i2.RouteConfig(EditDataGroupRoute.name,
+                    path: 'editDataGroup', parent: CollectionsRouter.name),
                 _i2.RouteConfig(EditDataPointRoute.name,
                     path: 'editDataPoint', parent: CollectionsRouter.name)
               ]),
@@ -202,7 +220,7 @@ class CreateCollectionRoute extends _i2.PageRouteInfo<void> {
 /// [_i5.EditCollectionScreen]
 class EditCollectionRoute extends _i2.PageRouteInfo<EditCollectionRouteArgs> {
   EditCollectionRoute(
-      {_i12.Key? key,
+      {_i13.Key? key,
       required String collectionId,
       required String currentName})
       : super(EditCollectionRoute.name,
@@ -219,7 +237,7 @@ class EditCollectionRouteArgs {
   const EditCollectionRouteArgs(
       {this.key, required this.collectionId, required this.currentName});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String collectionId;
 
@@ -234,7 +252,7 @@ class EditCollectionRouteArgs {
 /// generated route for
 /// [_i6.CollectionScreen]
 class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
-  CollectionRoute({_i12.Key? key, required String collectionId})
+  CollectionRoute({_i13.Key? key, required String collectionId})
       : super(CollectionRoute.name,
             path: 'view',
             args: CollectionRouteArgs(key: key, collectionId: collectionId),
@@ -246,7 +264,7 @@ class CollectionRoute extends _i2.PageRouteInfo<CollectionRouteArgs> {
 class CollectionRouteArgs {
   const CollectionRouteArgs({this.key, required this.collectionId});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String collectionId;
 
@@ -260,7 +278,7 @@ class CollectionRouteArgs {
 /// [_i7.CreateDataPointsScreen]
 class CreateDataPointsRoute
     extends _i2.PageRouteInfo<CreateDataPointsRouteArgs> {
-  CreateDataPointsRoute({_i12.Key? key, required String collectionId})
+  CreateDataPointsRoute({_i13.Key? key, required String collectionId})
       : super(CreateDataPointsRoute.name,
             path: 'addDataGroup',
             args:
@@ -273,7 +291,7 @@ class CreateDataPointsRoute
 class CreateDataPointsRouteArgs {
   const CreateDataPointsRouteArgs({this.key, required this.collectionId});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String collectionId;
 
@@ -284,10 +302,55 @@ class CreateDataPointsRouteArgs {
 }
 
 /// generated route for
-/// [_i8.EditDataPointScreen]
+/// [_i8.EditDataGroupScreen]
+class EditDataGroupRoute extends _i2.PageRouteInfo<EditDataGroupRouteArgs> {
+  EditDataGroupRoute(
+      {_i13.Key? key,
+      required String collectionId,
+      required String groupId,
+      required String currentDate})
+      : super(EditDataGroupRoute.name,
+            path: 'editDataGroup',
+            args: EditDataGroupRouteArgs(
+                key: key,
+                collectionId: collectionId,
+                groupId: groupId,
+                currentDate: currentDate),
+            rawPathParams: {
+              'collectionId': collectionId,
+              'groupId': groupId,
+              'currentDate': currentDate
+            });
+
+  static const String name = 'EditDataGroupRoute';
+}
+
+class EditDataGroupRouteArgs {
+  const EditDataGroupRouteArgs(
+      {this.key,
+      required this.collectionId,
+      required this.groupId,
+      required this.currentDate});
+
+  final _i13.Key? key;
+
+  final String collectionId;
+
+  final String groupId;
+
+  final String currentDate;
+
+  @override
+  String toString() {
+    return 'EditDataGroupRouteArgs{key: $key, collectionId: $collectionId, groupId: $groupId, currentDate: $currentDate}';
+  }
+}
+
+/// generated route for
+/// [_i9.EditDataPointScreen]
 class EditDataPointRoute extends _i2.PageRouteInfo<EditDataPointRouteArgs> {
   EditDataPointRoute(
-      {_i12.Key? key,
+      {_i13.Key? key,
       required String collectionId,
       required String groupId,
       required String dataId})
@@ -314,7 +377,7 @@ class EditDataPointRouteArgs {
       required this.groupId,
       required this.dataId});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String collectionId;
 
@@ -329,7 +392,7 @@ class EditDataPointRouteArgs {
 }
 
 /// generated route for
-/// [_i9.NamedTypesScreen]
+/// [_i10.NamedTypesScreen]
 class NamedTypesRoute extends _i2.PageRouteInfo<void> {
   const NamedTypesRoute() : super(NamedTypesRoute.name, path: '');
 
@@ -337,7 +400,7 @@ class NamedTypesRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.CreateNamedTypeScreen]
+/// [_i11.CreateNamedTypeScreen]
 class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
   const CreateNamedTypeRoute()
       : super(CreateNamedTypeRoute.name, path: 'create');
@@ -346,10 +409,10 @@ class CreateNamedTypeRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.EditNamedTypeScreen]
+/// [_i12.EditNamedTypeScreen]
 class EditNamedTypeRoute extends _i2.PageRouteInfo<EditNamedTypeRouteArgs> {
   EditNamedTypeRoute(
-      {_i12.Key? key,
+      {_i13.Key? key,
       required String namedTypeId,
       required String currentValue})
       : super(EditNamedTypeRoute.name,
@@ -368,7 +431,7 @@ class EditNamedTypeRouteArgs {
   const EditNamedTypeRouteArgs(
       {this.key, required this.namedTypeId, required this.currentValue});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   final String namedTypeId;
 

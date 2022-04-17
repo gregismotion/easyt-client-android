@@ -36,8 +36,10 @@ class DataPointTable extends StatelessWidget {
     while (rowIndex <= collection.referenceGroups.length - 1) {
       ReferenceGroup referenceGroup = collection.referenceGroups[rowIndex];
       if (tempRows[rowIndex] != null) {
-        tempRows[rowIndex]?.cells[0] =
-            DataCell(Text(referenceGroup.date.toString()));
+        tempRows[rowIndex]?.cells[0] = DataCell(
+            Text(referenceGroup.date.toString()),
+            onLongPress: () => AutoRouter.of(context).push(EditDataGroupRoute(
+                collectionId: collection.id, groupId: referenceGroup.id, currentDate: referenceGroup.date.toString())));
         for (DataPointReference reference in referenceGroup.dataReferences) {
           DataPoint dataPoint = Provider.of<DataProvider>(context)
               .getDataPoint(collection.id, referenceGroup.id, reference.id);
