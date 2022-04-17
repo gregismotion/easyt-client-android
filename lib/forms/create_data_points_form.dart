@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:easyt/forms/create_data_point.dart';
+import 'package:easyt/misc/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -65,22 +66,6 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     }
   }
 
-  Future<void> _selectTime(BuildContext context) async {
-    DateTime? date = await showDatePicker(
-        context: context,
-        initialDate: dataGroup.date,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(1948, 3, 15),
-        lastDate: DateTime(9999, 1, 1));
-    if (date != null) {
-      TimeOfDay time = await showTimePicker(
-              context: context, initialTime: TimeOfDay.now()) ??
-          TimeOfDay.fromDateTime(dataGroup.date);
-      dataGroup.date =
-          DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
@@ -95,11 +80,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     }
     children.addAll([
       ElevatedButton(onPressed: _addDataPoint, child: const Icon(Icons.add)),
-      ElevatedButton(
-          onPressed: () {
-            _selectTime(context);
-          },
-          child: const Icon(Icons.calendar_month)),
+      DateTimePicker(onChanged: (date) => dataGroup.date = date),
       ElevatedButton(onPressed: _createDataPoints, child: const Text("Create"))
     ]);
     return SingleChildScrollView(
