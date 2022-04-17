@@ -1,5 +1,6 @@
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/forms/data_point_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +32,6 @@ class CreateDataPointWidget extends StatefulWidget {
 }
 
 class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
-  final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<NamedType>> items = [];
@@ -65,25 +64,15 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
       }
     } on NoFreeNamedType {
       widget.onError();
-      return const SizedBox.shrink(); // FIXME: ngl pretty hacky?
+      return const SizedBox.shrink(); // NOTE: ngl pretty hacky?
     }
     return Column(
       children: [
         ElevatedButton(
             onPressed: widget.deleteCallback, child: const Icon(Icons.remove)),
-        TextFormField(
-          decoration: const InputDecoration(
-              border: UnderlineInputBorder(), labelText: "Data point value"),
-          controller: _controller,
-          onChanged: (text) {
-            widget.dataPoint.value = text;
-          },
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Please give a value!";
-            }
-            return null;
-          },
+        DataPointTextFormField(
+          basicType: widget.dataPoint.namedType.basicType,
+          onChanged: (value) => widget.dataPoint.value = value,
         ),
         DropdownButtonFormField<NamedType>(
             items: items,

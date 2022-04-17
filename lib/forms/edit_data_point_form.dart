@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/forms/data_point_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,14 +22,11 @@ class EditDataPointForm extends StatefulWidget {
 }
 
 class _EditDataPointFormState extends State<EditDataPointForm> {
-  final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     try {
       DataPoint dataPoint = Provider.of<DataProvider>(context)
           .getDataPoint(widget.collectionId, widget.groupId, widget.dataId);
-      _controller.text = dataPoint.value;
       return Column(
         children: [
           ElevatedButton(
@@ -39,27 +37,17 @@ class _EditDataPointFormState extends State<EditDataPointForm> {
                 AutoRouter.of(context).pop();
               },
               child: const Icon(Icons.remove)),
-          TextFormField(
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(), labelText: "Data point value"),
-            controller: _controller,
-            onChanged: (text) {
-              dataPoint.value = text;
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Please give a value!";
-              }
-              return null;
-            },
-          ),
+          DataPointTextFormField(
+              basicType: dataPoint.namedType.basicType,
+              initialValue: dataPoint.value,
+              onChanged: (value) => dataPoint.value = value),
           ElevatedButton(
               onPressed: () {
                 Provider.of<DataProvider>(context, listen: false).editDataPoint(
                     widget.collectionId,
                     widget.groupId,
                     dataPoint.id,
-                    _controller.text);
+                    dataPoint.value);
                 AutoRouter.of(context).pop();
               },
               child: const Icon(Icons.edit)),

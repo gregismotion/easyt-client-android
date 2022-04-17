@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 
 import 'data/provider.dart';
 
+// TODO: prettify whole app
+
 // TODO: filters in collections
 // TODO: collections: instead of long press, change add button to edit button (and allow multiple selections)
 // TODO: filters in named types
 // TODO: named types: instead of long press, change add button to edit button (and allow multiple selections)
 
-// TODO: input validation at data point creation (match with basictype)
 // TODO: datatable: instead of long press, let user select multiple entries (same type or different types?) and change add button to edit button
-// TODO: prettify data table
 
 void main() {
   runApp(const App());
