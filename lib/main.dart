@@ -14,7 +14,6 @@ import 'data/provider.dart';
 // TODO: input validation at data point creation (match with basictype)
 // TODO: datatable: instead of long press, let user select multiple entries (same type or different types?) and change add button to edit button
 // TODO: prettify data table
-// FIXME: can't vertically scroll data table
 
 void main() {
   runApp(const App());

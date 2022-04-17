@@ -39,7 +39,9 @@ class DataPointTable extends StatelessWidget {
         tempRows[rowIndex]?.cells[0] = DataCell(
             Text(referenceGroup.date.toString()),
             onLongPress: () => AutoRouter.of(context).push(EditDataGroupRoute(
-                collectionId: collection.id, groupId: referenceGroup.id, currentDate: referenceGroup.date.toString())));
+                collectionId: collection.id,
+                groupId: referenceGroup.id,
+                currentDate: referenceGroup.date.toString())));
         for (DataPointReference reference in referenceGroup.dataReferences) {
           DataPoint dataPoint = Provider.of<DataProvider>(context)
               .getDataPoint(collection.id, referenceGroup.id, reference.id);
@@ -69,11 +71,13 @@ class DataPointTable extends StatelessWidget {
       columns[entry.key] = entry.value;
     }
     if (columns.isNotEmpty && rows.isNotEmpty) {
-      return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: DataTable(columns: columns, rows: rows)));
+      return Expanded(
+        child: ListView(children: [
+          SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(columns: columns, rows: rows))
+        ]),
+      );
     } else {
       return const Text("Empty collection");
     }
