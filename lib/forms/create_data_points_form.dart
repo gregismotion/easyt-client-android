@@ -20,6 +20,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
   DataGroup dataGroup = DataGroup.local(DateTime.now(), []);
+  List<NamedType> usedNamedTypes = [];
 
   List<NamedType> getUsedNamedTypes() {
     List<NamedType> usedNamedTypes = [];
@@ -57,13 +58,11 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   }
 
   void _addDataPoint() {
-    List<NamedType> namedTypes =
-        Provider.of<TypeProvider>(context, listen: false).getNamedTypes(1, "");
-    if (namedTypes.isNotEmpty) {
-      setState(() {
-        dataGroup.dataPoints.add(DataPoint.local(namedTypes[0], ""));
-      });
-    }
+    setState(() {
+      dataGroup.dataPoints.add(DataPoint.local(
+          NamedType.local("local", BasicType.num),
+          "")); // FIXME: better way to create blank data point?
+    });
   }
 
   @override
@@ -71,12 +70,34 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     List<Widget> children = [];
     for (DataPoint dataPoint in dataGroup.dataPoints) {
       children.add(CreateDataPointWidget(
-          dataPoint: dataPoint,
-          deleteCallback: () {
+        dataPoint: dataPoint,
+        deleteCallback: () {
+          setState(() {
+            dataGroup.dataPoints.remove(dataPoint);
+            usedNamedTypes.remove(dataPoint.namedType);
+          });
+        },
+        namedTypeCallback: (NamedType namedType, bool rebuild) {
+          // ignore: prefer_function_declarations_over_variables
+          Function() add = () {
+            usedNamedTypes.remove(dataPoint.namedType);
+            usedNamedTypes.add(namedType);
+          };
+          if (rebuild) {
             setState(() {
-              dataGroup.dataPoints.remove(dataPoint);
+              add();
             });
-          }));
+          } else {
+            add();
+          }
+        },
+        isUsedNamedTypeCallback: (NamedType namedType) =>
+            usedNamedTypes.contains(namedType),
+        onError: () {
+          // TODO: indicate error
+          dataGroup.dataPoints.remove(dataPoint);
+        },
+      ));
     }
     children.addAll([
       ElevatedButton(onPressed: _addDataPoint, child: const Icon(Icons.add)),

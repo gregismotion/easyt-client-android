@@ -6,9 +6,6 @@ import 'package:provider/provider.dart';
 
 import 'data/provider.dart';
 
-// TODO: limit amount of data points at creation based on named type count
-// TODO: only allow one kind of named type in data point creation
-
 void main() {
   runApp(const App());
 }
