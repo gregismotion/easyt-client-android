@@ -59,8 +59,15 @@ class Collection {
     return newGroup.toReferenceGroup();
   }
 
-  void deleteDataPoint(String groupId, String dataId) =>
-      getDataGroup(groupId).dataPoints.remove(getDataPoint(groupId, dataId));
+  void _deleteDataGroup(DataGroup dataGroup) => dataGroups.remove(dataGroup);
+
+  void deleteDataPoint(String groupId, String dataId) {
+    DataGroup group = getDataGroup(groupId);
+    group.dataPoints.remove(getDataPoint(groupId, dataId));
+    if (group.dataPoints.isEmpty) {
+      _deleteDataGroup(group);
+    }
+  }
 }
 
 class DataMemory implements Data {
