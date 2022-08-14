@@ -8,6 +8,8 @@ import 'data/provider.dart';
 
 // TODO: prettify whole app
 
+// TODO: multi_select_flutter for tags
+
 // TODO: filters in collections
 // TODO: collections: instead of long press, change add button to edit button (and allow multiple selections)
 // TODO: filters in named types

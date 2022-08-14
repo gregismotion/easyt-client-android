@@ -80,6 +80,17 @@ class CollectionReference {
   final String id;
   final String name;
   CollectionReference(this.id, this.name);
+
+  @override
+  bool operator ==(other) {
+    if (other is! CollectionReference) {
+      return false;
+    }
+    return id == id && name == name;
+  }
+
+  @override
+  int get hashCode => (id + name).hashCode;
 }
 
 //data

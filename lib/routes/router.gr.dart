@@ -18,7 +18,7 @@ import '../screens/collections_screen.dart' as _i3;
 import '../screens/create_collection_screen.dart' as _i4;
 import '../screens/create_data_points_screen.dart' as _i7;
 import '../screens/create_named_type_screen.dart' as _i11;
-import '../screens/edit_collection_screen.dart' as _i5;
+import '../screens/edit_collections_screen.dart' as _i5;
 import '../screens/edit_data_group_screen.dart' as _i8;
 import '../screens/edit_data_point_screen.dart' as _i9;
 import '../screens/edit_named_type_screen.dart' as _i12;
@@ -51,14 +51,12 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i4.CreateCollectionScreen());
     },
-    EditCollectionRoute.name: (routeData) {
-      final args = routeData.argsAs<EditCollectionRouteArgs>();
+    EditCollectionsRoute.name: (routeData) {
+      final args = routeData.argsAs<EditCollectionsRouteArgs>();
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i5.EditCollectionScreen(
-              key: args.key,
-              collectionId: args.collectionId,
-              currentName: args.currentName));
+          child: _i5.EditCollectionsScreen(
+              key: args.key, collections: args.collections));
     },
     CollectionRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -144,7 +142,7 @@ class AppRouter extends _i2.RootStackRouter {
                     path: '', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CreateCollectionRoute.name,
                     path: 'create', parent: CollectionsRouter.name),
-                _i2.RouteConfig(EditCollectionRoute.name,
+                _i2.RouteConfig(EditCollectionsRoute.name,
                     path: 'edit', parent: CollectionsRouter.name),
                 _i2.RouteConfig(CollectionRoute.name,
                     path: 'view', parent: CollectionsRouter.name),
@@ -217,35 +215,27 @@ class CreateCollectionRoute extends _i2.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.EditCollectionScreen]
-class EditCollectionRoute extends _i2.PageRouteInfo<EditCollectionRouteArgs> {
-  EditCollectionRoute(
-      {_i13.Key? key,
-      required String collectionId,
-      required String currentName})
-      : super(EditCollectionRoute.name,
+/// [_i5.EditCollectionsScreen]
+class EditCollectionsRoute extends _i2.PageRouteInfo<EditCollectionsRouteArgs> {
+  EditCollectionsRoute(
+      {_i13.Key? key, required Map<String, String> collections})
+      : super(EditCollectionsRoute.name,
             path: 'edit',
-            args: EditCollectionRouteArgs(
-                key: key,
-                collectionId: collectionId,
-                currentName: currentName));
+            args: EditCollectionsRouteArgs(key: key, collections: collections));
 
-  static const String name = 'EditCollectionRoute';
+  static const String name = 'EditCollectionsRoute';
 }
 
-class EditCollectionRouteArgs {
-  const EditCollectionRouteArgs(
-      {this.key, required this.collectionId, required this.currentName});
+class EditCollectionsRouteArgs {
+  const EditCollectionsRouteArgs({this.key, required this.collections});
 
   final _i13.Key? key;
 
-  final String collectionId;
-
-  final String currentName;
+  final Map<String, String> collections;
 
   @override
   String toString() {
-    return 'EditCollectionRouteArgs{key: $key, collectionId: $collectionId, currentName: $currentName}';
+    return 'EditCollectionsRouteArgs{key: $key, collections: $collections}';
   }
 }
 
