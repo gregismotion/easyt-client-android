@@ -8,6 +8,8 @@ class CreateDataPointsScreen extends StatelessWidget {
       {Key? key, @PathParam("collectionId") required this.collectionId})
       : super(key: key);
 
+
+  // TODO: refactor properly
   Widget _buildForm() {
     return CreateDataPointsForm(collectionId: collectionId);
   }
