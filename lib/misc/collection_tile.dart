@@ -31,12 +31,29 @@ class _CollectionTileState extends State<CollectionTile> {
   }
 
   @override
+  void dispose() {
+    widget.selectionController.removeListener(() {});
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    widget.selectionController.addListener(() {});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ReferenceCollection referenceCollection =
         Provider.of<CollectionProvider>(context)
             .getReferenceCollection(widget.collectionId, 0, "");
     collectionReference =
         CollectionReference(referenceCollection.id, referenceCollection.name);
+    /*if (!widget.selectionController.isSelectionMode && isSelected == true) {
+      setState(() {
+        isSelected = false;
+      });
+    }*/
     return ListTile(
       selected: isSelected,
       title: Text(collectionReference.name),

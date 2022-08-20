@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
+// FIXME: selection sticks after edit
+
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({Key? key}) : super(key: key);
 
@@ -24,7 +26,9 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
   void initState() {
     super.initState();
     _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
-    _selectionController.addListener(() {});
+    _selectionController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -44,7 +48,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
         in _selectionController.selected) {
       collections[collectionReference.id] = collectionReference.name;
     }
-    _selectionController.isSelectionMode = false;
+    _selectionController.cancelSelection();
     AutoRouter.of(context).push(EditCollectionsRoute(collections: collections));
   }
 

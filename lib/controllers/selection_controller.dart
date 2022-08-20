@@ -4,6 +4,11 @@ class SelectionController<ValueType> extends ChangeNotifier {
   bool isSelectionMode = false;
   List<ValueType> selected = [];
 
+  void cancelSelection() {
+    isSelectionMode = false;
+    notifyListeners();
+  }
+
   void selectionChanged(ValueType element, bool isSelected) {
     if (selected.isEmpty) {
       isSelectionMode = true;
@@ -11,7 +16,7 @@ class SelectionController<ValueType> extends ChangeNotifier {
     if (isSelected) {
       selected.add(element);
     } else {
-      print(selected.remove(element));
+      selected.remove(element);
     }
     if (selected.isEmpty) {
       isSelectionMode = false;

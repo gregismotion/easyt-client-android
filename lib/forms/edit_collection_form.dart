@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,12 @@ import 'package:provider/provider.dart';
 class EditCollectionForm extends StatefulWidget {
   final String collectionId;
   final String currentName;
+  final Stream editStream;
   const EditCollectionForm(
-      {Key? key, required this.collectionId, required this.currentName})
+      {Key? key,
+      required this.collectionId,
+      required this.currentName,
+      required this.editStream})
       : super(key: key);
 
   @override
@@ -16,25 +22,50 @@ class EditCollectionForm extends StatefulWidget {
 
 class _EditCollectionFormState extends State<EditCollectionForm> {
   final _formKey = GlobalKey<FormState>();
-  final _controller = TextEditingController();
+  final _textController = TextEditingController();
+  late StreamSubscription editSubscription;
+
+  void _listenToEdit() {
+    editSubscription = widget.editStream.listen((_) => _editCollection());
+  }
+
+  void _stopListenToEdit() {
+    editSubscription.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _listenToEdit();
+  }
 
   void _editCollection() {
     if (_formKey.currentState!.validate()) {
       Provider.of<CollectionProvider>(context, listen: false)
-          .editCollection(widget.collectionId, _controller.text);
-      Navigator.pop(context);
+          .editCollection(widget.collectionId, _textController.text);
+    }
+  }
+
+  @override
+  void didUpdateWidget(EditCollectionForm old) {
+    super.didUpdateWidget(old);
+    // in case the stream instance changed, subscribe to the new one
+    if (widget.editStream != old.editStream) {
+      _stopListenToEdit();
+      _listenToEdit();
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _textController.dispose();
+    _stopListenToEdit();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = widget.currentName;
+    _textController.text = widget.currentName;
     return Form(
       key: _formKey,
       child: Column(
@@ -50,7 +81,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
             autofocus: true,
             decoration: const InputDecoration(
                 border: UnderlineInputBorder(), labelText: "Collection name"),
-            controller: _controller,
+            controller: _textController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Please give a name!";
@@ -58,7 +89,6 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
               return null;
             },
           ),
-          ElevatedButton(onPressed: _editCollection, child: const Text("Edit"))
         ],
       ),
     );
