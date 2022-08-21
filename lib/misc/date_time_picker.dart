@@ -37,6 +37,6 @@ class _DateTimePickerState extends State<DateTimePicker> {
         onPressed: () {
           _selectTime(context);
         },
-        child: const Icon(Icons.calendar_month));
+        child: const Icon(Icons.edit_calendar));
   }
 }

@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.book), label: "Collections"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.abc), label: "Named types")
+                  icon: Icon(Icons.ballot), label: "Named types")
             ]);
       },
     );

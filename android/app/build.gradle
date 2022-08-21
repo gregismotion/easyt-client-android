@@ -21,12 +21,19 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// nix stuff
+def flutterBuildToolsVersion = localProperties.getProperty('flutter.buildToolsVersion')
+if (flutterBuildToolsVersion == null) {
+    flutterBuildToolsVersion = '30.0.3'
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion flutter.compileSdkVersion
+    buildToolsVersion flutterBuildToolsVersion // nix stuff
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
