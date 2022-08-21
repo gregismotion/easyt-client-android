@@ -1,6 +1,7 @@
 import 'package:easyt/controllers/selection_controller.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Tile<Reference> extends StatefulWidget {
   SelectionController<Reference> internalSelectionController;
 
