@@ -7,9 +7,10 @@ import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CollectionTile extends Tile<CollectionReference> {
+class CollectionTile extends Tile<dynamic> {
   final String collectionId;
-  final SelectionController<CollectionReference> selectionController;
+  final SelectionController<dynamic>
+      selectionController; // FIXME: would be good to provide type safety...
 
   const CollectionTile(
       {Key? key, required this.collectionId, required this.selectionController})
