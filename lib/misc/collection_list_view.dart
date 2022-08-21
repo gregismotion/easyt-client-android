@@ -4,7 +4,6 @@ import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:easyt/misc/collection_tile.dart';
 import 'package:easyt/misc/editable_list_view.dart';
-import 'package:easyt/misc/tile.dart';
 import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
