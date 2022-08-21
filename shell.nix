@@ -11,6 +11,7 @@ in pkgs.mkShell {
     jdk11
     niv
     #from ./nix/*
+    scrcpy
     android.platform-tools ];
 
   ANDROID_HOME = "${android.androidsdk}/libexec/android-sdk";
