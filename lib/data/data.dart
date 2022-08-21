@@ -82,6 +82,11 @@ class CollectionReference {
   CollectionReference(this.id, this.name);
 
   @override
+  String toString() {
+    return name;
+  }
+
+  @override
   bool operator ==(other) {
     if (other is! CollectionReference) {
       return false;

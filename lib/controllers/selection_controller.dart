@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-class SelectionController<ValueType> extends ChangeNotifier {
+class SelectionController<Reference> extends ChangeNotifier {
   bool isSelectionMode = false;
-  List<ValueType> selected = [];
+  List<Reference> selected = [];
 
   void cancelSelection() {
     isSelectionMode = false;
@@ -10,7 +10,7 @@ class SelectionController<ValueType> extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectionChanged(ValueType element, bool isSelected) {
+  void selectionChanged(Reference element, bool isSelected) {
     if (selected.isEmpty) {
       isSelectionMode = true;
     }
