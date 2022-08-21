@@ -49,11 +49,16 @@ class _CollectionTileState extends State<CollectionTile> {
             .getReferenceCollection(widget.collectionId, 0, "");
     collectionReference =
         CollectionReference(referenceCollection.id, referenceCollection.name);
-    /*if (!widget.selectionController.isSelectionMode && isSelected == true) {
-      setState(() {
-        isSelected = false;
-      });
-    }*/
+    if (!widget.selectionController.isSelectionMode && isSelected == true) {
+      print("--------");
+      print(widget.selectionController.isSelectionMode);
+      print(isSelected);
+      print("|||");
+      isSelected = false; //FIXME: this stays true on next build??
+      print(widget.selectionController.isSelectionMode);
+      print(isSelected);
+      print("--------");
+    }
     return ListTile(
       selected: isSelected,
       title: Text(collectionReference.name),

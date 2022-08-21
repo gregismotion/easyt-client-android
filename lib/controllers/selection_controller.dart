@@ -6,6 +6,7 @@ class SelectionController<ValueType> extends ChangeNotifier {
 
   void cancelSelection() {
     isSelectionMode = false;
+    selected.clear();
     notifyListeners();
   }
 
