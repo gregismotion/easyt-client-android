@@ -12,7 +12,7 @@ class CollectionTile extends Tile<dynamic> {
   final SelectionController<dynamic>
       selectionController; // FIXME: would be good to provide type safety...
 
-  const CollectionTile(
+  CollectionTile(
       {Key? key, required this.collectionId, required this.selectionController})
       : super(key: key, internalSelectionController: selectionController);
 

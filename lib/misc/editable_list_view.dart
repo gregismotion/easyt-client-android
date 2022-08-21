@@ -1,12 +1,13 @@
 import 'package:easyt/controllers/selection_controller.dart';
 import 'package:easyt/misc/tile.dart';
+import 'package:easyt/misc/tile_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class EditableListView<Reference> extends StatefulWidget {
   final Tile Function(SelectionController, Reference) tileCreator;
   final List<Reference> Function(int, String) fetchReferencePage;
-  final String Function(Reference) referenceToKey;
+  final String Function(dynamic) referenceToKey; // FIXME: type safety...
   final void Function(PagingController) setRefreshListener;
   final void Function(List<dynamic>) editReferences; // FIXME: type safety...
   final void Function() createReference;
@@ -29,17 +30,13 @@ class EditableListView<Reference> extends StatefulWidget {
 
 class _EditableListViewState<Reference> extends State<EditableListView> {
   final _selectionController = SelectionController<Reference>();
-  final _pagingController =
-      PagingController<String, Reference>(firstPageKey: "");
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
     _selectionController.addListener(() {
       widget.changeActionButton(_getActionButton());
     });
-    widget.setRefreshListener(_pagingController);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       widget.changeActionButton(_getActionButton());
     });
@@ -47,25 +44,8 @@ class _EditableListViewState<Reference> extends State<EditableListView> {
 
   @override
   void dispose() {
-    _pagingController.dispose();
     _selectionController.dispose();
     super.dispose();
-  }
-
-  void _fetchPage(String pageKey) {
-    const int size = 10;
-    try {
-      final List<Reference> referencePage =
-          widget.fetchReferencePage(size, pageKey) as List<Reference>;
-      if (referencePage.length < size) {
-        _pagingController.appendLastPage(referencePage);
-      } else {
-        _pagingController.appendPage(
-            referencePage, widget.referenceToKey(referencePage.last));
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
   }
 
   Widget _getActionButton() {
@@ -87,19 +67,16 @@ class _EditableListViewState<Reference> extends State<EditableListView> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-        onRefresh: () => Future.sync(() => _pagingController.refresh()),
-        child: PagedListView<String, Reference>.separated(
-          pagingController: _pagingController,
-          padding: const EdgeInsets.all(16),
-          builderDelegate: // TODO: error indicators
-              PagedChildBuilderDelegate(itemBuilder: (context, reference, i) {
-            return widget.tileCreator(_selectionController, reference);
-          }),
-          separatorBuilder: (context, i) => const Divider(
-            thickness: 2,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ), // TODO: theme
-        ));
+    return TileListView(
+      tileCreator: (dynamic reference) {
+        // FIXME: type safety...
+        Tile tile = widget.tileCreator(_selectionController, reference);
+        tile.internalSelectionController = _selectionController;
+        return tile;
+      },
+      fetchReferencePage: widget.fetchReferencePage,
+      referenceToKey: widget.referenceToKey,
+      setRefreshListener: widget.setRefreshListener,
+    );
   }
 }

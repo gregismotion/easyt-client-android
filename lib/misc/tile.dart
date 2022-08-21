@@ -2,10 +2,9 @@ import 'package:easyt/controllers/selection_controller.dart';
 import 'package:flutter/material.dart';
 
 class Tile<Reference> extends StatefulWidget {
-  final SelectionController<Reference> internalSelectionController;
+  SelectionController<Reference> internalSelectionController;
 
-  const Tile({Key? key, required this.internalSelectionController})
-      : super(key: key);
+  Tile({Key? key, required this.internalSelectionController}) : super(key: key);
 
   @override
   State<Tile> createState() => TileState();

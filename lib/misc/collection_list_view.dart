@@ -43,7 +43,8 @@ class _CollectionListViewState extends State<CollectionListView> {
         return Provider.of<CollectionProvider>(context, listen: false)
             .getCollectionReferences(size, pageKey);
       },
-      referenceToKey: (CollectionReference reference) {
+      referenceToKey: (dynamic reference) {
+        // FIXME: type safety...
         return reference.id;
       },
       setRefreshListener: (PagingController pagingController) => {
