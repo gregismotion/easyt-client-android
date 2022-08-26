@@ -48,3 +48,4 @@ app.*.map.json
 # Nix
 .direnv/*
 .direnv
+lib/routes/router.gr.dart
