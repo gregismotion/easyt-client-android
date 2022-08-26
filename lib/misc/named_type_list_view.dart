@@ -16,18 +16,15 @@ class NamedTypeListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return PagedListView<String, NamedType>.separated(
-      pagingController: controller,
-      padding: const EdgeInsets.all(16),
-      builderDelegate: // TODO: error indicators
-          PagedChildBuilderDelegate(itemBuilder: (context, namedType, i) {
-        return NamedTypeTile(namedTypeId: namedType.id);
-      }),
-      separatorBuilder: (context, i) => const Divider(
-        thickness: 2,
-        color: Color.fromARGB(255, 0, 0, 0),
-      ), // TODO: theme
-    );*/
+    Map<String, String> _referencesToMap(List<dynamic> references) {
+      // FIXME: type safety...
+      Map<String, String> namedTypes = {};
+      for (NamedType reference in references) {
+        namedTypes[reference.id] = reference.name;
+      }
+      return namedTypes;
+    }
+
     EditableListView<NamedType> listView = EditableListView(
       tileCreator:
           (SelectionController selectionController, dynamic reference) {
@@ -50,9 +47,7 @@ class NamedTypeListView extends StatelessWidget {
       },
       editReferences: (List<dynamic> references) {
         // FIXME: type safety...
-        // TODO: create named type edit that can accept a list
-        /*AutoRouter.of(context).push(EditNamedTypeRoute(
-          namedTypeId: namedType.id, currentValue: namedType.name))*/
+        AutoRouter.of(context).push(EditNamedTypesRoute(namedTypes: _referencesToMap(references)));
       },
       createReference: () {
         AutoRouter.of(context).push(const CreateNamedTypeRoute());

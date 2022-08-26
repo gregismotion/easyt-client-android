@@ -7,9 +7,11 @@ import 'package:easyt/screens/create_named_type_screen.dart';
 import 'package:easyt/screens/edit_collections_screen.dart';
 import 'package:easyt/screens/edit_data_group_screen.dart';
 import 'package:easyt/screens/edit_data_point_screen.dart';
-import 'package:easyt/screens/edit_named_type_screen.dart';
+import 'package:easyt/screens/edit_named_types_screen.dart';
 import 'package:easyt/screens/home_screen.dart';
 import 'package:easyt/screens/named_types_screen.dart';
+
+// NOTE: run generate-routes.sh or watch-routes.sh after/before changing this file or cloning the repo!
 
 @MaterialAutoRouter(replaceInRouteName: 'Screen,Route', routes: <AutoRoute>[
   AutoRoute(path: '/', page: HomeScreen, children: [
@@ -33,7 +35,7 @@ import 'package:easyt/screens/named_types_screen.dart';
         children: [
           AutoRoute(path: '', page: NamedTypesScreen),
           AutoRoute(path: 'create', page: CreateNamedTypeScreen),
-          AutoRoute(path: 'edit', page: EditNamedTypeScreen),
+          AutoRoute(path: 'edit', page: EditNamedTypesScreen),
         ]),
   ]),
 ])
