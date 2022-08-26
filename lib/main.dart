@@ -11,9 +11,7 @@ import 'data/provider.dart';
 // TODO: multi_select_flutter for tags
 
 // TODO: filters in collections
-// TODO: collections: instead of long press, change add button to edit button (and allow multiple selections)
 // TODO: filters in named types
-// TODO: named types: instead of long press, change add button to edit button (and allow multiple selections)
 
 // TODO: datatable: instead of long press, let user select multiple entries (same type or different types?) and change add button to edit button
 
