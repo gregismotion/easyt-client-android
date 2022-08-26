@@ -1,11 +1,39 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:easyt/controllers/selection_controller.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/routes/router.gr.dart';
+import 'package:easyt/misc/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NamedTypeTile extends StatelessWidget {
+// ignore: must_be_immutable
+class NamedTypeTile extends Tile<dynamic> {
+  final String namedTypeId;
+  final SelectionController<dynamic>
+      selectionController; // FIXME: would be good to provide type safety...
+
+  NamedTypeTile(
+      {Key? key, required this.namedTypeId, required this.selectionController})
+      : super(key: key, internalSelectionController: selectionController);
+
+  @override
+  _NamedTypeTileState createState() => _NamedTypeTileState();
+}
+
+class _NamedTypeTileState extends TileState<NamedType, NamedTypeTile> {
+  @override
+  void onTap() {
+    // TODO: implement smt on NamedType onTap
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    reference =
+        Provider.of<TypeProvider>(context).getNamedType(widget.namedTypeId);
+    return super.build(context);
+  }
+}
+
+/*class NamedTypeTile extends StatelessWidget {
   final String namedTypeId;
 
   const NamedTypeTile({Key? key, required this.namedTypeId}) : super(key: key);
@@ -13,12 +41,11 @@ class NamedTypeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NamedType namedType =
-        Provider.of<TypeProvider>(context).getNamedType(namedTypeId);
+        
     return ListTile(
       title:
-          Text("${namedType.name} (${basicTypeToName(namedType.basicType)})"),
-      onLongPress: () => AutoRouter.of(context).push(EditNamedTypeRoute(
-          namedTypeId: namedType.id, currentValue: namedType.name)),
+          Text(),
+      onLongPress: () => ,
     );
   }
-}
+}*/

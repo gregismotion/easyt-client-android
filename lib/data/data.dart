@@ -65,6 +65,11 @@ class NamedType {
 
   NamedType(this.id, this.name, this.basicType);
   NamedType.local(this.name, this.basicType) : id = "local";
+
+  @override
+  String toString() {
+    return "$name (${basicTypeToName(basicType)})"; // TODO: create named type details page and remove basic type from here
+  }
 }
 
 // collections
