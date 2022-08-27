@@ -8,8 +8,6 @@ class CollectionsScreen extends StatefulWidget {
   State<CollectionsScreen> createState() => _CollectionsScreenState();
 }
 
-// TODO: only exit on deletion from edit IF it was the last item
-
 class _CollectionsScreenState extends State<CollectionsScreen> {
   Widget actionButton = FloatingActionButton(
       onPressed: () {},

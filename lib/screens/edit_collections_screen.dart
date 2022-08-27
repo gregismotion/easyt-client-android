@@ -3,21 +3,36 @@ import 'dart:async';
 import 'package:easyt/forms/edit_collection_form.dart';
 import 'package:flutter/material.dart';
 
-class EditCollectionsScreen extends StatelessWidget {
-  final Map<String, String> collections;
-  final editBroadcast = StreamController.broadcast();
+// ignore: must_be_immutable
+class EditCollectionsScreen extends StatefulWidget {
+  Map<String, String> collections;
 
   EditCollectionsScreen({Key? key, required this.collections})
       : super(key: key);
 
   @override
+  State<EditCollectionsScreen> createState() => _EditCollectionsScreenState();
+}
+
+class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
+  final editBroadcast = StreamController.broadcast();
+
+  @override
   Widget build(BuildContext context) {
     List<EditCollectionForm> items = [];
-    for (MapEntry<String, String> entry in collections.entries) {
+    for (MapEntry<String, String> entry in widget.collections.entries) {
       items.add(EditCollectionForm(
         collectionId: entry.key,
         currentName: entry.value,
         editStream: editBroadcast.stream,
+        collectionDeleted: (String id) {
+          setState(() {
+            widget.collections.remove(id);
+            if (widget.collections.isEmpty) {
+              Navigator.pop(context);
+            }
+          });
+        },
       ));
     }
     return ListView.separated(

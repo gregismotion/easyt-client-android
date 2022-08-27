@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +8,13 @@ class EditCollectionForm extends StatefulWidget {
   final String collectionId;
   final String currentName;
   final Stream editStream;
+  final void Function(String) collectionDeleted;
   const EditCollectionForm(
       {Key? key,
       required this.collectionId,
       required this.currentName,
-      required this.editStream})
+      required this.editStream,
+      required this.collectionDeleted})
       : super(key: key);
 
   @override
@@ -74,7 +75,7 @@ class _EditCollectionFormState extends State<EditCollectionForm> {
               onPressed: () {
                 Provider.of<CollectionProvider>(context, listen: false)
                     .deleteCollection(widget.collectionId);
-                AutoRouter.of(context).pop();
+                widget.collectionDeleted(widget.collectionId);
               },
               child: const Icon(Icons.remove)),
           TextFormField(
