@@ -1,5 +1,4 @@
 import 'package:easyt/misc/collection_list_view.dart';
-import 'package:easyt/misc/dynamic_action_button.dart';
 import 'package:easyt/misc/dynamic_scaffold.dart';
 import 'package:flutter/material.dart';
 

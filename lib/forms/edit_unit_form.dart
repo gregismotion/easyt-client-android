@@ -75,12 +75,21 @@ class EditUnitFormState extends State<EditUnitForm>
   }
 
   bool isNameAlreadySet = false;
-  @override
-  Widget build(BuildContext context) {
+  String originalName = "";
+  void setName() {
     if (!isNameAlreadySet) {
+      originalName = widget.currentName;
+    }
+    if (!isNameAlreadySet || originalName != widget.currentName) {
+      // NOTE: the or is PROBABLY needed because Flutter wants to reuse the widget? I'm not completely sure... Could be connected to the super call in build?
       _textController.text = widget.currentName;
       isNameAlreadySet = true;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    setName();
     super.build(context);
     return Form(
       key: _formKey,
