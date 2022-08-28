@@ -23,8 +23,8 @@ class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
     for (MapEntry<String, String> entry in widget.collections.entries) {
       items.add(EditCollectionForm(
         collectionId: entry.key,
-        currentName: entry.value,
-        editStream: editBroadcast.stream,
+        collectionCurrentName: entry.value,
+        collectionEditStream: editBroadcast.stream,
         collectionDeleted: (String id) {
           setState(() {
             widget.collections.remove(id);
