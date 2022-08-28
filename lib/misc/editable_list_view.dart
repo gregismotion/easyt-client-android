@@ -11,7 +11,7 @@ class EditableListView<Reference> extends StatefulWidget {
   final void Function(PagingController) setRefreshListener;
   final void Function(List<dynamic>) editReferences; // FIXME: type safety...
   final void Function() createReference;
-  final void Function(Widget) changeActionButton;
+  final void Function(bool, void Function()) changeActionButton;
 
   const EditableListView(
       {Key? key,
@@ -35,34 +35,28 @@ class _EditableListViewState<Reference> extends State<EditableListView> {
   void initState() {
     super.initState();
     _selectionController.addListener(() {
-      widget.changeActionButton(_getActionButton());
+      updateActionButton();
     });
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      widget.changeActionButton(_getActionButton());
+      updateActionButton();
     });
+  }
+
+  void updateActionButton() {
+    if (_selectionController.isSelectionMode) {
+      widget.changeActionButton(true, () {
+        widget.editReferences(_selectionController.selected);
+        _selectionController.cancelSelection();
+      });
+    } else {
+      widget.changeActionButton(false, () => widget.createReference());
+    }
   }
 
   @override
   void dispose() {
     _selectionController.dispose();
     super.dispose();
-  }
-
-  Widget _getActionButton() {
-    if (_selectionController.isSelectionMode) {
-      return FloatingActionButton(
-        child: const Icon(Icons.edit),
-        onPressed: () {
-          widget.editReferences(_selectionController.selected);
-          _selectionController.cancelSelection();
-        },
-      );
-    } else {
-      return FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => widget.createReference(),
-      );
-    }
   }
 
   @override

@@ -10,7 +10,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class NamedTypeListView extends StatelessWidget {
-  final void Function(Widget) changeActionButton;
+  final void Function(bool, void Function()) changeActionButton;
   const NamedTypeListView({Key? key, required this.changeActionButton})
       : super(key: key);
 
@@ -47,13 +47,14 @@ class NamedTypeListView extends StatelessWidget {
       },
       editReferences: (List<dynamic> references) {
         // FIXME: type safety...
-        AutoRouter.of(context).push(EditNamedTypesRoute(namedTypes: _referencesToMap(references)));
+        AutoRouter.of(context).push(
+            EditNamedTypesRoute(namedTypes: _referencesToMap(references)));
       },
       createReference: () {
         AutoRouter.of(context).push(const CreateNamedTypeRoute());
       },
-      changeActionButton: (Widget actionButton) =>
-          changeActionButton(actionButton),
+      changeActionButton: (bool isEditing, void Function() onPressed) =>
+          changeActionButton(isEditing, onPressed),
     );
     return listView;
   }

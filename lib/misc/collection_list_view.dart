@@ -10,7 +10,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class CollectionListView extends StatefulWidget {
-  final void Function(Widget) changeActionButton;
+  final void Function(bool, void Function()) changeActionButton;
   const CollectionListView({Key? key, required this.changeActionButton})
       : super(key: key);
 
@@ -58,8 +58,8 @@ class _CollectionListViewState extends State<CollectionListView> {
       createReference: () {
         AutoRouter.of(context).push(const CreateCollectionRoute());
       },
-      changeActionButton: (Widget actionButton) =>
-          widget.changeActionButton(actionButton),
+      changeActionButton: (bool isEditing, void Function() onPressed) =>
+          widget.changeActionButton(isEditing, onPressed),
     );
     return listView;
   }

@@ -1,4 +1,5 @@
 import 'package:easyt/misc/collection_list_view.dart';
+import 'package:easyt/misc/dynamic_action_button.dart';
 import 'package:flutter/material.dart';
 
 class CollectionsScreen extends StatefulWidget {
@@ -9,17 +10,21 @@ class CollectionsScreen extends StatefulWidget {
 }
 
 class _CollectionsScreenState extends State<CollectionsScreen> {
-  Widget actionButton = FloatingActionButton(
-      onPressed: () {},
-      child: const Icon(Icons
-          .add)); // FIXME: the default could change in the EditableListView, this seems sensible for now...
+  bool isEditing = false;
+  // ignore: prefer_function_declarations_over_variables
+  void Function() actionButtonOnPressed = () {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: CollectionListView(
-            changeActionButton: (Widget newActionButton) => setState(() {
-                  actionButton = newActionButton;
-                })),
-        floatingActionButton: actionButton);
+            changeActionButton:
+                (bool isEditingNew, void Function() onPressedNew) =>
+                    setState(() {
+                      isEditing = isEditingNew;
+                      actionButtonOnPressed = onPressedNew;
+                    })),
+        floatingActionButton: DynamicActionButton(
+            isEditing: isEditing, onPressed: actionButtonOnPressed));
   }
 }
