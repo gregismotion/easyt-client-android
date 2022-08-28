@@ -65,6 +65,7 @@ class NamedType {
 
   NamedType(this.id, this.name, this.basicType);
   NamedType.local(this.name, this.basicType) : id = "local";
+  NamedType.blank() : id = "local", name = "", basicType = BasicType.num;
 
   @override
   String toString() {
@@ -135,6 +136,7 @@ class DataPoint {
   String value;
   DataPoint(this.id, this.namedType, this.value);
   DataPoint.local(this.namedType, this.value) : id = "local";
+  DataPoint.blank() : id = "local", namedType = NamedType.blank(), value = "";
 
   DataPointReference toDataPointReference() {
     return DataPointReference.fromDataPoint(this);

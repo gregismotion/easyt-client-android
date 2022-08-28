@@ -59,9 +59,7 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
 
   void _addDataPoint() {
     setState(() {
-      dataGroup.dataPoints.add(DataPoint.local(
-          NamedType.local("local", BasicType.num),
-          "")); // FIXME: better way to create blank data point?
+      dataGroup.dataPoints.add(DataPoint.blank());
     });
   }
 
