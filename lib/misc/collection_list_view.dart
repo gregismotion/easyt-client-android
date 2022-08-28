@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easyt/controllers/selection_controller.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
+import 'package:easyt/misc/action_button_mixin.dart';
 import 'package:easyt/misc/collection_tile.dart';
 import 'package:easyt/misc/editable_list_view.dart';
 import 'package:easyt/routes/router.gr.dart';
@@ -9,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
-class CollectionListView extends StatefulWidget {
-  final void Function(bool, void Function()) changeActionButton;
-  const CollectionListView({Key? key, required this.changeActionButton})
-      : super(key: key);
+// ignore: must_be_immutable
+class CollectionListView extends StatefulWidget with ActionButtonMixin {
+  CollectionListView({Key? key}) : super(key: key);
 
   @override
   State<CollectionListView> createState() => _CollectionListViewState();
