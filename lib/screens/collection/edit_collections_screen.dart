@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:easyt/forms/edit_collection_form.dart';
+import 'package:easyt/forms/collection/edit_collection_form.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

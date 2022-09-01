@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easyt/screens/collection_screen.dart';
-import 'package:easyt/screens/collections_screen.dart';
-import 'package:easyt/screens/create_collection_screen.dart';
-import 'package:easyt/screens/create_data_points_screen.dart';
-import 'package:easyt/screens/create_named_type_screen.dart';
-import 'package:easyt/screens/edit_collections_screen.dart';
-import 'package:easyt/screens/edit_data_group_screen.dart';
-import 'package:easyt/screens/edit_data_point_screen.dart';
-import 'package:easyt/screens/edit_named_types_screen.dart';
+import 'package:easyt/screens/collection/collection_screen.dart';
+import 'package:easyt/screens/collection/collections_screen.dart';
+import 'package:easyt/screens/collection/create_collection_screen.dart';
+import 'package:easyt/screens/data/create_data_points_screen.dart';
+import 'package:easyt/screens/named_type/create_named_type_screen.dart';
+import 'package:easyt/screens/collection/edit_collections_screen.dart';
+import 'package:easyt/screens/data/edit_data_group_screen.dart';
+import 'package:easyt/screens/data/edit_data_point_screen.dart';
+import 'package:easyt/screens/named_type/edit_named_types_screen.dart';
 import 'package:easyt/screens/home_screen.dart';
-import 'package:easyt/screens/named_types_screen.dart';
+import 'package:easyt/screens/named_type/named_types_screen.dart';
 
 // NOTE: run generate-routes.sh or watch-routes.sh after/before changing this file or cloning the repo!
 

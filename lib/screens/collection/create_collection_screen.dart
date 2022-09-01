@@ -1,4 +1,4 @@
-import 'package:easyt/forms/create_collection_form.dart';
+import 'package:easyt/forms/collection/create_collection_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateCollectionScreen extends StatelessWidget {

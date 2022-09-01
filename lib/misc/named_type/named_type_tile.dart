@@ -1,7 +1,7 @@
 import 'package:easyt/controllers/selection_controller.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/misc/tile.dart';
+import 'package:easyt/misc/list/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

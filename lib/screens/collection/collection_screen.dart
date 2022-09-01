@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/misc/data_point_table.dart';
+import 'package:easyt/misc/data/data_point_table.dart';
 import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

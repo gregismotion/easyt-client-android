@@ -1,5 +1,5 @@
 import 'package:easyt/data/data.dart';
-import 'package:easyt/data/memory.dart';
+import 'package:easyt/data/backends/memory.dart';
 import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +13,6 @@ import 'data/provider.dart';
 // TODO: filters in named types
 
 // TODO: datatable: instead of long press, let user select multiple entries (even different types) and change add button to edit button
-
-// TODO: organize/clean up file structure
 
 void main() {
   runApp(const App());

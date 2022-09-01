@@ -13,17 +13,17 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i13;
 
-import '../screens/collection_screen.dart' as _i6;
-import '../screens/collections_screen.dart' as _i3;
-import '../screens/create_collection_screen.dart' as _i4;
-import '../screens/create_data_points_screen.dart' as _i7;
-import '../screens/create_named_type_screen.dart' as _i11;
-import '../screens/edit_collections_screen.dart' as _i5;
-import '../screens/edit_data_group_screen.dart' as _i8;
-import '../screens/edit_data_point_screen.dart' as _i9;
-import '../screens/edit_named_types_screen.dart' as _i12;
+import '../screens/collection/collection_screen.dart' as _i6;
+import '../screens/collection/collections_screen.dart' as _i3;
+import '../screens/collection/create_collection_screen.dart' as _i4;
+import '../screens/data/create_data_points_screen.dart' as _i7;
+import '../screens/named_type/create_named_type_screen.dart' as _i11;
+import '../screens/collection/edit_collections_screen.dart' as _i5;
+import '../screens/data/edit_data_group_screen.dart' as _i8;
+import '../screens/data/edit_data_point_screen.dart' as _i9;
+import '../screens/named_type/edit_named_types_screen.dart' as _i12;
 import '../screens/home_screen.dart' as _i1;
-import '../screens/named_types_screen.dart' as _i10;
+import '../screens/named_type/named_types_screen.dart' as _i10;
 
 class AppRouter extends _i2.RootStackRouter {
   AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])

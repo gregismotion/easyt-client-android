@@ -1,6 +1,6 @@
 import 'package:easyt/controllers/selection_controller.dart';
-import 'package:easyt/misc/tile.dart';
-import 'package:easyt/misc/tile_list_view.dart';
+import 'package:easyt/misc/list/tile.dart';
+import 'package:easyt/misc/list/tile_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 

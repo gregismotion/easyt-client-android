@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easyt/forms/edit_data_group_form.dart';
+import 'package:easyt/forms/collection/edit_data_group_form.dart';
 import 'package:flutter/material.dart';
 
 class EditDataGroupScreen extends StatelessWidget {

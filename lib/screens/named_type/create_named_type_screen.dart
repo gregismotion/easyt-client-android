@@ -1,4 +1,4 @@
-import 'package:easyt/forms/create_named_type_form.dart';
+import 'package:easyt/forms/named_type/create_named_type_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateNamedTypeScreen extends StatelessWidget {

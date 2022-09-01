@@ -1,6 +1,6 @@
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/forms/data_point_text_form_field.dart';
+import 'package:easyt/forms/data/data_point_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

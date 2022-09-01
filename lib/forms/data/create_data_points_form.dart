@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
-import 'package:easyt/forms/create_data_point.dart';
+import 'package:easyt/forms/data/create_data_point.dart';
 import 'package:easyt/misc/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
-import 'package:easyt/misc/action_button_mixin.dart';
-import 'package:easyt/misc/dynamic_action_button.dart';
+import 'package:easyt/misc/action_button/action_button_mixin.dart';
+import 'package:easyt/misc/action_button/dynamic_action_button.dart';
 import 'package:flutter/material.dart';
 
 class DynamicScaffold extends StatefulWidget {

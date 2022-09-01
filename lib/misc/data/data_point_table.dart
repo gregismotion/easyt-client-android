@@ -1,6 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:easyt/data/data.dart';
-import 'package:easyt/misc/data_point_table_source.dart';
+import 'package:easyt/misc/data/data_point_table_source.dart';
 import 'package:flutter/material.dart';
 
 class DataPointTable extends StatefulWidget {

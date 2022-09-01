@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:easyt/forms/edit_named_type_form.dart';
+import 'package:easyt/forms/named_type/edit_named_type_form.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

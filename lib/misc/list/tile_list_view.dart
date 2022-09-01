@@ -1,4 +1,4 @@
-import 'package:easyt/misc/tile.dart';
+import 'package:easyt/misc/list/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
