@@ -42,6 +42,8 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     super.initState();
     for (NamedType namedType in getUsedNamedTypes()) {
       dataGroup.dataPoints.add(DataPoint.local(namedType, ""));
+      usedNamedTypes.add(
+          namedType); // NOTE: we shouldn't have to double log, could cause inconsistencies...
     }
   }
 
@@ -62,8 +64,6 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
       dataGroup.dataPoints.add(DataPoint.blank());
     });
   }
-
-  // FIXME: at first, you can add twice the same named type...
 
   @override
   Widget build(BuildContext context) {
