@@ -38,6 +38,10 @@ class Collection {
     throw NotFound("DataGroup ($id) not found!");
   }
 
+  int getDataGroupCount() {
+    return dataGroups.length;
+  }
+
   DataPoint getDataPoint(String groupId, String dataId) {
     final group = getDataGroup(groupId);
     for (DataPoint dataPoint in group.dataPoints) {
@@ -213,13 +217,17 @@ class DataMemory implements Data {
 
   @override
   void deleteDataPoint(String colId, String groupId, String dataId) {
-    final collection = _getCollection(colId);
-    collection.deleteDataPoint(groupId, dataId);
+    _getCollection(colId).deleteDataPoint(groupId, dataId);
   }
 
   @override
   void editDataPoint(
       String colId, String groupId, String dataId, String newValue) {
     getDataPoint(colId, groupId, dataId).value = newValue;
+  }
+
+  @override
+  int getDataGroupCount(String id) {
+    return _getCollection(id).getDataGroupCount();
   }
 }

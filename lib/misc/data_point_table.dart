@@ -1,85 +1,50 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:easyt/data/data.dart';
-import 'package:easyt/data/provider.dart';
-import 'package:easyt/routes/router.gr.dart';
+import 'package:easyt/misc/data_point_table_source.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class DataPointTable extends StatelessWidget {
+class DataPointTable extends StatefulWidget {
   final String collectionId;
   const DataPointTable({Key? key, required this.collectionId})
       : super(key: key);
 
   @override
+  State<DataPointTable> createState() => _DataPointTableState();
+}
+
+class _DataPointTableState extends State<DataPointTable> {
+  late DataPointTableSource source =
+      DataPointTableSource(context, widget.collectionId);
+
+  @override
   Widget build(BuildContext context) {
-    ReferenceCollection collection = Provider.of<CollectionProvider>(context)
-        .getReferenceCollection(collectionId, 100, ""); // TODO: pagination
-    Map<int, DataRow> tempRows = {};
-    Map<int, DataColumn> tempColumns = {
-      0: const DataColumn(label: Text("Date"))
-    };
-    Map<NamedType, int> columnMap = {};
-    for (ReferenceGroup referenceGroup in collection.referenceGroups) {
-      for (DataPointReference reference in referenceGroup.dataReferences) {
-        if (!columnMap.keys.contains(reference.namedType)) {
-          int newIndex = 1;
-          if (columnMap.values.isNotEmpty) {
-            newIndex = columnMap.values.last + 1;
-          }
-          columnMap[reference.namedType] = newIndex;
-          tempColumns[newIndex] =
-              DataColumn(label: Text(reference.namedType.name));
-        }
-      }
-    }
-    int rowIndex = 0;
-    while (rowIndex <= collection.referenceGroups.length - 1) {
-      ReferenceGroup referenceGroup = collection.referenceGroups[rowIndex];
-      if (tempRows[rowIndex] != null) {
-        tempRows[rowIndex]?.cells[0] = DataCell(
-            Text(referenceGroup.date.toString()),
-            onLongPress: () => AutoRouter.of(context).push(EditDataGroupRoute(
-                collectionId: collection.id,
-                groupId: referenceGroup.id,
-                currentDate: referenceGroup.date.toString())));
-        for (DataPointReference reference in referenceGroup.dataReferences) {
-          DataPoint dataPoint = Provider.of<DataProvider>(context)
-              .getDataPoint(collection.id, referenceGroup.id, reference.id);
-          tempRows[rowIndex]?.cells[columnMap[reference.namedType] ?? 1] =
-              DataCell(
-            Text(dataPoint.value),
-            onLongPress: () => AutoRouter.of(context).push(EditDataPointRoute(
-                collectionId: collection.id,
-                groupId: referenceGroup.id,
-                dataId: dataPoint.id)),
-          );
-        }
-        rowIndex++;
-      } else {
-        tempRows[rowIndex] =
-            DataRow(cells: List.filled(tempColumns.length, DataCell.empty));
-      }
-    }
-    List<DataRow> rows =
-        List.filled(tempRows.entries.length, const DataRow(cells: []));
-    for (MapEntry entry in tempRows.entries) {
-      rows[entry.key] = entry.value;
-    }
+    source.fetchPage();
     List<DataColumn> columns = List.filled(
-        tempColumns.entries.length, const DataColumn(label: Text("unknown")));
-    for (MapEntry entry in tempColumns.entries) {
-      columns[entry.key] = entry.value;
+        source.columnMap.length + 1, const DataColumn(label: Text("unknown")));
+    columns[0] = const DataColumn(label: Text("Date"));
+    for (MapEntry<NamedType, int> entry in source.columnMap.entries) {
+      columns[entry.value] = DataColumn(label: Text(entry.key.name));
     }
-    if (columns.isNotEmpty && rows.isNotEmpty) {
+    if (columns.isNotEmpty) {
       return Expanded(
-        child: ListView(children: [
-          SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(columns: columns, rows: rows))
-        ]),
+        child: Column(
+          children: [
+            Expanded(
+              // TODO: proper infinite scroll table
+              child: PaginatedDataTable2(
+                columns: columns,
+                source: source,
+              ),
+            ),
+            const SizedBox(
+              height: 75,
+            )
+          ],
+        ),
       );
+      ;
     } else {
-      return const Text("Empty collection");
+      return const Text("Collection has no named types!");
     }
   }
 }

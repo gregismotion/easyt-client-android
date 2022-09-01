@@ -63,6 +63,8 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
     });
   }
 
+  // FIXME: at first, you can add twice the same named type...
+
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];

@@ -1,4 +1,5 @@
 // TODO: create multiple backends
+// FIXME: lastId approach: it might get deleted in the meantime...
 
 class NotFound implements Exception {
   final String msg;
@@ -27,6 +28,7 @@ abstract class Data {
   List<CollectionReference> getCollectionReferences(int size, String lastId);
   ReferenceCollection getReferenceCollection(
       String id, int size, String lastId);
+  int getDataGroupCount(String id);
   CollectionReference createCollection(String name);
   void editCollection(String id, String name);
   void deleteCollection(String id);
@@ -65,7 +67,10 @@ class NamedType {
 
   NamedType(this.id, this.name, this.basicType);
   NamedType.local(this.name, this.basicType) : id = "local";
-  NamedType.blank() : id = "local", name = "", basicType = BasicType.num;
+  NamedType.blank()
+      : id = "local",
+        name = "",
+        basicType = BasicType.num;
 
   @override
   String toString() {
@@ -136,7 +141,10 @@ class DataPoint {
   String value;
   DataPoint(this.id, this.namedType, this.value);
   DataPoint.local(this.namedType, this.value) : id = "local";
-  DataPoint.blank() : id = "local", namedType = NamedType.blank(), value = "";
+  DataPoint.blank()
+      : id = "local",
+        namedType = NamedType.blank(),
+        value = "";
 
   DataPointReference toDataPointReference() {
     return DataPointReference.fromDataPoint(this);

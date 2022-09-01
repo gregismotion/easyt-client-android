@@ -9,11 +9,12 @@ import 'data/provider.dart';
 // TODO: prettify whole app
 
 // TODO: multi_select_flutter for tags
-
 // TODO: filters in collections
 // TODO: filters in named types
 
-// TODO: datatable: instead of long press, let user select multiple entries (same type or different types?) and change add button to edit button
+// TODO: datatable: instead of long press, let user select multiple entries (even different types) and change add button to edit button
+
+// TODO: organize/clean up file structure
 
 void main() {
   runApp(const App());

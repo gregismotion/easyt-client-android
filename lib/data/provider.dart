@@ -47,6 +47,10 @@ class CollectionProvider extends ChangeNotifier {
     return _data.getReferenceCollection(id, size, lastId);
   }
 
+  int getDataGroupCount(String id) {
+    return _data.getDataGroupCount(id);
+  }
+
   CollectionReference createCollection(String name) {
     var result = _data.createCollection(name);
     notifyListeners();
