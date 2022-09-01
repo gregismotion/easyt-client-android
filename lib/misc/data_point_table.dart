@@ -42,7 +42,6 @@ class _DataPointTableState extends State<DataPointTable> {
           ],
         ),
       );
-      ;
     } else {
       return const Text("Collection has no named types!");
     }
