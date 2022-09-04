@@ -18,9 +18,6 @@ class CollectionScreen extends StatelessWidget {
       Row(
         children: [Text(collection.name)],
       ),
-      Row(
-        children: [Text(collection.id)],
-      ),
       DataPointTable(collectionId: collectionId)
     ]);
   }
