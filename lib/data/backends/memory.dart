@@ -6,6 +6,7 @@ class Collection {
 
   final String id;
   String name;
+  List<NamedType> namedTypes = [];
   final List<DataGroup> dataGroups;
   Collection(this.id, this.name, this.dataGroups);
   Collection.create(this.name)
@@ -58,6 +59,9 @@ class Collection {
     for (DataPoint dataPoint in dataGroup.dataPoints) {
       newGroup.dataPoints
           .add(DataPoint(uuid.v1(), dataPoint.namedType, dataPoint.value));
+      if (!namedTypes.contains(dataPoint.namedType)) {
+        namedTypes.add(dataPoint.namedType);
+      }
     }
     dataGroups.add(newGroup);
     return newGroup.toReferenceGroup();
@@ -181,6 +185,11 @@ class DataMemory implements Data {
     var collection = Collection.create(name);
     collections.add(collection);
     return collection.toReference();
+  }
+
+  @override
+  List<NamedType> getCollectionNamedTypes(String id) {
+    return _getCollection(id).namedTypes;
   }
 
   @override

@@ -20,30 +20,14 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
   DataGroup dataGroup = DataGroup.local(DateTime.now(), []);
-  List<NamedType> usedNamedTypes = [];
-
-  List<NamedType> getUsedNamedTypes() {
-    List<NamedType> usedNamedTypes = [];
-    for (ReferenceGroup referenceGroup
-        in Provider.of<CollectionProvider>(context, listen: false)
-            .getReferenceCollection(widget.collectionId, 100, "")
-            .referenceGroups) {
-      for (DataPointReference reference in referenceGroup.dataReferences) {
-        if (!usedNamedTypes.contains(reference.namedType)) {
-          usedNamedTypes.add(reference.namedType);
-        }
-      }
-    } // FIXME: we might miss the biggest DataGroup
-    return usedNamedTypes;
-  }
 
   @override
   void initState() {
     super.initState();
-    for (NamedType namedType in getUsedNamedTypes()) {
+    for (NamedType namedType
+        in Provider.of<CollectionProvider>(context, listen: false)
+            .getCollectionNamedTypes(widget.collectionId)) {
       dataGroup.dataPoints.add(DataPoint.local(namedType, ""));
-      usedNamedTypes.add(
-          namedType); // NOTE: we shouldn't have to double log, could cause inconsistencies...
     }
   }
 
@@ -74,25 +58,12 @@ class _CreateDataPointsFormState extends State<CreateDataPointsForm> {
         deleteCallback: () {
           setState(() {
             dataGroup.dataPoints.remove(dataPoint);
-            usedNamedTypes.remove(dataPoint.namedType);
           });
         },
-        namedTypeCallback: (NamedType namedType, bool rebuild) {
-          // ignore: prefer_function_declarations_over_variables
-          Function() add = () {
-            usedNamedTypes.remove(dataPoint.namedType);
-            usedNamedTypes.add(namedType);
-          };
-          if (rebuild) {
-            setState(() {
-              add();
-            });
-          } else {
-            add();
-          }
-        },
         isUsedNamedTypeCallback: (NamedType namedType) =>
-            usedNamedTypes.contains(namedType),
+            Provider.of<CollectionProvider>(context, listen: false)
+                .getCollectionNamedTypes(widget.collectionId)
+                .contains(namedType),
         onError: () {
           // TODO: indicate error
           dataGroup.dataPoints.remove(dataPoint);

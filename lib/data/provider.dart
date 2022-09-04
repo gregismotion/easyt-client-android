@@ -57,6 +57,10 @@ class CollectionProvider extends ChangeNotifier {
     return result;
   }
 
+  List<NamedType> getCollectionNamedTypes(String id) {
+    return _data.getCollectionNamedTypes(id);
+  }
+
   void editCollection(String id, String name) {
     _data.editCollection(id, name);
     notifyListeners();

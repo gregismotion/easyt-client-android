@@ -30,6 +30,7 @@ abstract class Data {
       String id, int size, String lastId);
   int getDataGroupCount(String id);
   CollectionReference createCollection(String name);
+  List<NamedType> getCollectionNamedTypes(String id);
   void editCollection(String id, String name);
   void deleteCollection(String id);
 

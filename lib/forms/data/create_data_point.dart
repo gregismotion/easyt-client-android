@@ -14,7 +14,6 @@ class NoFreeNamedType implements Exception {
 class CreateDataPointWidget extends StatefulWidget {
   final DataPoint dataPoint;
   final Function() deleteCallback;
-  final Function(NamedType, bool) namedTypeCallback;
   final bool Function(NamedType) isUsedNamedTypeCallback;
   final Function() onError;
 
@@ -22,7 +21,6 @@ class CreateDataPointWidget extends StatefulWidget {
       {Key? key,
       required this.dataPoint,
       required this.deleteCallback,
-      required this.namedTypeCallback,
       required this.isUsedNamedTypeCallback,
       required this.onError})
       : super(key: key);
@@ -31,6 +29,7 @@ class CreateDataPointWidget extends StatefulWidget {
   State<CreateDataPointWidget> createState() => _CreateDataPointWidgetState();
 }
 
+// TODO: refactor for better named type search (probs opens new activity with tags search and such...)
 class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
       if (!isProperNamedType) {
         try {
           widget.dataPoint.namedType = items[0].value!;
-          widget.namedTypeCallback(widget.dataPoint.namedType, false);
+          //widget.namedTypeCallback(widget.dataPoint.namedType, false);
         } on RangeError {
           throw const NoFreeNamedType(
               "Cannot create data point creation form!");
@@ -79,7 +78,7 @@ class _CreateDataPointWidgetState extends State<CreateDataPointWidget> {
             onChanged: (value) {
               NamedType namedType =
                   (value ?? items[0].value)!; // NOTE: is this safe?
-              widget.namedTypeCallback(namedType, true);
+              //widget.namedTypeCallback(namedType, true);
               widget.dataPoint.namedType = namedType;
             },
             value: widget.dataPoint.namedType),
