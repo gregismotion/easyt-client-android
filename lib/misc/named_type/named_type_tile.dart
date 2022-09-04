@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easyt/controllers/selection_controller.dart';
 import 'package:easyt/data/data.dart';
 import 'package:easyt/data/provider.dart';
 import 'package:easyt/misc/list/tile.dart';
+import 'package:easyt/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +24,7 @@ class NamedTypeTile extends Tile<dynamic> {
 class _NamedTypeTileState extends TileState<NamedType, NamedTypeTile> {
   @override
   void onTap() {
-    // TODO: implement smt on NamedType onTap
+    AutoRouter.of(context).push(NamedTypeRoute(namedTypeId: widget.namedTypeId));
   }
 
   @override
@@ -32,20 +34,3 @@ class _NamedTypeTileState extends TileState<NamedType, NamedTypeTile> {
     return super.build(context);
   }
 }
-
-/*class NamedTypeTile extends StatelessWidget {
-  final String namedTypeId;
-
-  const NamedTypeTile({Key? key, required this.namedTypeId}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    NamedType namedType =
-        
-    return ListTile(
-      title:
-          Text(),
-      onLongPress: () => ,
-    );
-  }
-}*/

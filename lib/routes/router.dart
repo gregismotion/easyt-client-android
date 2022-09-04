@@ -10,6 +10,7 @@ import 'package:easyt/screens/data/edit_data_point_screen.dart';
 import 'package:easyt/screens/named_type/edit_named_types_screen.dart';
 import 'package:easyt/screens/home_screen.dart';
 import 'package:easyt/screens/named_type/named_types_screen.dart';
+import 'package:easyt/screens/named_type/named_type_screen.dart';
 
 // NOTE: run generate-routes.sh or watch-routes.sh after/before changing this file or cloning the repo!
 
@@ -36,6 +37,7 @@ import 'package:easyt/screens/named_type/named_types_screen.dart';
           AutoRoute(path: '', page: NamedTypesScreen),
           AutoRoute(path: 'create', page: CreateNamedTypeScreen),
           AutoRoute(path: 'edit', page: EditNamedTypesScreen),
+          AutoRoute(path: 'view', page: NamedTypeScreen),
         ]),
   ]),
 ])

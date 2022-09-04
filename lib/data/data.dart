@@ -75,7 +75,7 @@ class NamedType {
 
   @override
   String toString() {
-    return "$name (${basicTypeToName(basicType)})"; // TODO: create named type details page and remove basic type from here
+    return name;
   }
 }
 

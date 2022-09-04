@@ -32,6 +32,10 @@ class TypeProvider extends ChangeNotifier {
     _data.deleteNamedType(id);
     notifyListeners();
   }
+
+  String basicTypeToString(BasicType basicType) {
+    return basicTypeToName(basicType);
+  }
 }
 
 class CollectionProvider extends ChangeNotifier {
